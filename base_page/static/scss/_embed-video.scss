@@ -1,0 +1,17 @@
+// blocks/_embed-video.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.embed-video-block {
+  margin: $spacing-lg 0;
+  max-width: 100%;
+
+  @include respond-to(sm) {
+    margin: $spacing-md 0;
+  }
+
+  @include respond-to(xs) {
+    margin: $spacing-sm 0;
+    max-width: 100%;
+  }
+}

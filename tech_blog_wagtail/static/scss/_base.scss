@@ -1,0 +1,41 @@
+// _base.scss
+@import 'variables';
+@import 'mixins';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  color: $color-text;
+  background-color: $color-bg-default;
+}
+
+// Container: center with dynamic width
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: $spacing-xl 0;
+
+  @include respond-to(sm) {
+    width: 95%;
+    padding: $spacing-lg 0;
+  }
+
+  @include respond-to(xs) {
+    width: 100%;
+    padding: $spacing-md 0;
+  }
+}
+
+header,
+footer {
+  background: $color-bg-default;
+  padding: $spacing-md 0;
+
+  @include respond-to(sm) {
+    padding: $spacing-sm 0;
+  }
+}

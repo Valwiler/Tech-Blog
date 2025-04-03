@@ -1,0 +1,25 @@
+// blocks/_code.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.code-block {
+  background: $color-bg-code;
+  padding: $spacing-md;
+  overflow-x: auto;
+  margin: $spacing-md 0;
+  border-radius: $radius-md;
+
+  @include respond-to(sm) {
+    padding: $spacing-sm;
+  }
+
+  @include respond-to(xs) {
+    font-size: 0.9rem;
+    padding: $spacing-xs;
+  }
+  // language-based styling
+  // &.language-python {}
+  // &.language-javascript {}
+  // &.language-html {}
+  // &.language-css {}
+}

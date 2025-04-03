@@ -1,0 +1,46 @@
+// _variables.scss
+
+// COLORS
+$color-text: #2f2f2f;
+$color-text-inverse: #ffffff;
+$color-border: #dadada;
+$color-bg-default: #e9ffdb;
+$color-bg-lighter: #ffffff;
+$color-bg-code: #f4f4f4;
+$color-bg-cta: #ecf2ff;
+$color-bg-link: #3A86FF;
+$color-bg-link-hover: #2563eb;
+$color-bg-menu: #e5e5e5;
+$color-bg-submenu: #ffffff;
+$color-bg-submenu-hover: #fafafa;
+
+// FONTS
+$font-family-base: 'Inter', sans-serif;
+
+// Font Sizes with Clamp for Responsiveness
+$font-size-h1: clamp(1.8rem, 4vw, 2.5rem);
+$font-size-h2: clamp(1.5rem, 3vw, 2rem);
+$font-size-h3: clamp(1.3rem, 2.5vw, 1.75rem);
+$font-size-h4: clamp(1.1rem, 2vw, 1.5rem);
+$font-size-h5: clamp(1rem, 1.8vw, 1.25rem);
+$font-size-h6: clamp(0.9rem, 1.5vw, 1.1rem);
+
+// SPACING
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.75rem;
+$spacing-md: 1.25rem;
+$spacing-lg: 1.75rem;
+$spacing-xl: 2.5rem;
+
+// BORDER RADIUS
+$radius-sm: 4px;
+$radius-md: 6px;
+
+// OTHER
+$transition-fast: 0.25s ease;
+
+// RESPONSIVE BREAKPOINTS
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1200px;

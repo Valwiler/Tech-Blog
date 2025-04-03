@@ -1,0 +1,33 @@
+{% load wagtailimages_tags %}
+<div class="blog-card-block">
+  <!-- 1) Image -->
+  {% if self.image %}
+    <div class="blog-card-image">
+      {% image self.image original fill="400x250" alt=self.heading %}
+    </div>
+  {% endif %}
+
+  {% if self.heading %}
+    <h3 class="blog-card-heading">{{ self.heading }}</h3>
+  {% endif %}
+
+  {% if self.publication_date %}
+    <p class="blog-card-date">
+      {{ self.publication_date|date:"F j, Y" }}
+    </p>
+  {% endif %}
+
+  {% if self.excerpt %}
+    <p class="blog-card-excerpt">{{ self.excerpt }}</p>
+  {% endif %}
+
+  {% if self.button %}
+    <p class="blog-card-button-wrapper">
+      {%with button=self.button%}
+      <a {{ button.url }} class="blog-card-button">
+        {{ button.title }}
+      </a>
+      {% endwith %}
+    </p>
+  {% endif %}
+</div>

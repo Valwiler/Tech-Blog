@@ -1,0 +1,118 @@
+// blocks/_paragraph.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.paragraph-block {
+  margin: $spacing-md 0;
+  line-height: 1.6;
+
+  // Responsive adjustments
+  @include respond-to(sm) {
+    margin: $spacing-sm 0;
+    line-height: 1.5;
+  }
+  @include respond-to(xs) {
+    font-size: 0.9rem;
+  }
+
+  // ─────────────────────────────────────────────
+  // RichText Images
+  // ─────────────────────────────────────────────
+
+  // Generic richtext image styles
+  .richtext-image {
+    display: inline-block;
+    margin: $spacing-sm 0;
+    max-width: 100%;
+    height: auto;
+  }
+
+  // Full-width image
+  .richtext-image.full-width {
+    display: block;
+    margin: $spacing-md 0;
+  }
+
+  // Left-aligned image
+  .richtext-image.left {
+    float: left;
+    margin-right: $spacing-sm;
+  }
+
+  // Right-aligned image
+  .richtext-image.right {
+    float: right;
+    margin-left: $spacing-sm;
+  }
+
+  // ─────────────────────────────────────────────
+  // Headings within paragraph-block
+  // ─────────────────────────────────────────────
+
+  h2,
+  h3,
+  h4
+  h5,
+  h6 {
+    margin: $spacing-md 0 $spacing-sm;
+    line-height: 1.3;
+    font-weight: bold;
+
+    @include respond-to(xs) {
+      font-size: 0.95rem; // example adjustment for very small screens
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // Lists (OL & UL)
+  // ─────────────────────────────────────────────
+
+  ol,
+  ul {
+    margin: $spacing-sm $spacing-md;
+    padding-left: $spacing-md;
+
+    li {
+      margin-bottom: $spacing-xs;
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // Horizontal Rule
+  // ─────────────────────────────────────────────
+
+  hr {
+    border: 0;
+    border-top: 1px solid $color-border;
+    margin: $spacing-md 0;
+  }
+
+  // ─────────────────────────────────────────────
+  // Embeds / iframes
+  // ─────────────────────────────────────────────
+
+  iframe {
+    max-width: 100%;
+    height: auto;
+    margin: $spacing-md 0;
+
+    // Optionally make it responsive with aspect ratio
+    // e.g., if you want a 16:9 ratio:
+    // Wrap in a container with position: relative; etc.
+  }
+
+  // ─────────────────────────────────────────────
+  // Links
+  // ─────────────────────────────────────────────
+
+  a {
+    color: $color-bg-link;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+      color: $color-bg-link-hover;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block title %}
+  {{ page.title }}
+{% endblock title%}
+
+{% block header %}
+  <!-- If you want a special header for the homepage, put it here -->
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <h2>{{ page.hero_title }}</h2>
+    <p>{{ page.hero_subtitle }}</p>
+  </section>
+
+  <section>
+    <!-- Render the StreamField body. -->
+    {% for block in page.body %}
+      {% include_block block %}
+    {% endfor %}
+  </section>
+{% endblock content%}

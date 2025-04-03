@@ -1,0 +1,38 @@
+// blocks/_pull-quote.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.pull-quote-block {
+  border-left: 4px solid $color-border;
+  margin: $spacing-lg 0;
+  padding-left: $spacing-md;
+  font-style: italic;
+
+  @include respond-to(sm) {
+    margin: $spacing-md 0;
+    padding-left: $spacing-sm;
+  }
+
+  @include respond-to(xs) {
+    font-size: 0.9rem;
+  }
+}
+
+.pull-quote-text {
+  font-size: 1.2rem;
+
+  @include respond-to(xs) {
+    font-size: 1rem;
+  }
+}
+
+.pull-quote-attribution {
+  text-align: right;
+  margin-top: $spacing-sm;
+  font-weight: bold;
+
+  @include respond-to(xs) {
+    text-align: center;
+    margin-top: $spacing-xs;
+  }
+}

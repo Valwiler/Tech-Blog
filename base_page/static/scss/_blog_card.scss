@@ -1,0 +1,76 @@
+// _blog_card.scss
+// _blog_card.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.blog-card-block {
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+    background-color: $color-bg-lighter;
+
+    .blog-card-image {
+      margin-bottom: $spacing-sm;
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: $radius-sm;
+      }
+    }
+
+    .blog-card-heading {
+      margin: 0 0 $spacing-xs;
+      font-size: 1.25rem;
+      font-weight: 700;
+
+      @include respond-to(sm) {
+        font-size: 1.15rem;
+      }
+
+      @include respond-to(xs) {
+        font-size: 1rem;
+      }
+    }
+
+    .blog-card-date {
+      margin: 0 0 $spacing-sm;
+      font-size: 0.9rem;
+      color: $color-text;
+      opacity: 0.7;
+    }
+
+    .blog-card-excerpt {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: $spacing-sm;
+    }
+
+    // Button styles
+    .blog-card-button-wrapper {
+      margin-top: $spacing-sm;
+      text-align: left;
+
+      @include respond-to(xs) {
+        text-align: center;
+      }
+    }
+
+    .blog-card-button {
+      display: inline-block;
+      padding: $spacing-xs $spacing-sm;
+      background-color: $color-bg-link;
+      color: $color-text-inverse;
+      text-decoration: none;
+      border-radius: $radius-sm;
+      transition: background $transition-fast;
+
+      &:hover,
+      &:focus {
+        background-color: $color-bg-link-hover;
+      }
+    }
+  }

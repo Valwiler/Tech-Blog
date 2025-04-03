@@ -1,0 +1,19 @@
+// main.scss
+
+// Global and Utility partials Imports
+@import 'variables';
+@import 'mixins';
+@import 'base';
+@import 'typography';
+@import 'menus';
+
+// Import Block partials
+@import '../../../base_page/static/scss/heading';
+@import '../../../base_page/static/scss/paragraph';
+@import '../../../base_page/static/scss/code';
+@import '../../../base_page/static/scss/pull-quote';
+@import '../../../base_page/static/scss/cta';
+@import '../../../base_page/static/scss/gallery';
+@import '../../../base_page/static/scss/embed-video';
+@import '../../../base_page/static/scss/blog_card';
+@import '../../../base_page/static/scss/blog_cards_list';

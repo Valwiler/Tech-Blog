@@ -1,0 +1,21 @@
+// _blog_cards_list.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.blog-card-list {
+  display: grid;
+  grid-gap: $spacing-md;
+
+  // Show 4 columns on large screens
+  grid-template-columns: repeat(4, 1fr);
+
+  // Medium devices: 2 columns
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Small devices: 1 column
+  @include respond-to(xs) {
+    grid-template-columns: 1fr;
+  }
+}

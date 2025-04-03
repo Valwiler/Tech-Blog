@@ -1,0 +1,7 @@
+<!-- templates/blocks/blog_cards_list_block.html -->
+{% load wagtailcore_tags %}
+<div class="blog-card-list">
+    {% for card in self %}
+      {% include_block card %}
+    {% endfor %}
+  </div>

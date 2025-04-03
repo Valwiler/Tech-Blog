@@ -1,0 +1,89 @@
+// _menus.scss
+@import 'variables';
+@import 'mixins';
+
+// Main Menu container & items
+.main-menu,
+.main-menu .submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.main-menu {
+  display: flex;
+  justify-content: space-between;
+
+  @include respond-to(sm) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.main-menu li {
+  display: inline-block;
+  position: relative;
+  margin-right: $spacing-md;
+
+  @include respond-to(sm) {
+    display: block;
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.main-menu a {
+  display: block;
+  text-decoration: none;
+  padding: $spacing-sm $spacing-md;
+  color: $color-text;
+  background: $color-bg-menu;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: darken($color-bg-menu, 5%);
+  }
+}
+
+// Submenu
+.main-menu .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: $color-bg-submenu;
+  border: 1px solid $color-border;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 1000;
+
+  @include respond-to(sm) {
+    position: relative;
+    width: 100%;
+  }
+
+  li {
+    display: block;
+    width: 100%;
+  }
+
+  a {
+    padding: $spacing-sm;
+    color: $color-text;
+    background: $color-bg-submenu;
+
+    &:hover {
+      background: $color-bg-submenu-hover;
+    }
+  }
+}
+
+.main-menu li:hover > .submenu {
+  display: block;
+
+  @include respond-to(sm) {
+    display: block;
+    position: relative;
+  }
+}

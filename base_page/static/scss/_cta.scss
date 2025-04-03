@@ -1,0 +1,49 @@
+// blocks/_cta.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.cta-block {
+  background: $color-bg-cta;
+  border: 1px solid $color-border;
+  padding: $spacing-md;
+  margin: $spacing-lg 0;
+  text-align: center;
+
+  @include respond-to(sm) {
+    padding: $spacing-sm;
+    margin: $spacing-md 0;
+  }
+
+  @include respond-to(xs) {
+    padding: $spacing-xs;
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+
+    @include respond-to(xs) {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.cta-button {
+  display: inline-block;
+  padding: $spacing-sm $spacing-md;
+  background: $color-bg-link;
+  color: $color-text-inverse;
+  text-decoration: none;
+  border-radius: $radius-sm;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-bg-link-hover;
+  }
+
+  @include respond-to(xs) {
+    width: 100%;
+    padding: $spacing-sm;
+    text-align: center;
+  }
+}

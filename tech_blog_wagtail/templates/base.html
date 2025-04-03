@@ -1,0 +1,35 @@
+{% load static wagtailcore_tags wagtailimages_tags menu_tags%}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}My Tech Blog{% endblock %}</title>
+  {% block head%}
+  {% endblock head%}
+  {% compress css %}
+    <link type="text/x-scss" href="{% static 'scss/main.scss' %}"     rel="stylesheet" media="screen">
+  {% endcompress %}
+</head>
+<body>
+    <header>
+      <nav>
+        {% main_menu %}
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer>
+      <nav>
+        {% flat_menu "footer" max_levels=1 %}
+      </nav>
+        <p>&copy; {{ now|date:"Y" }} - Tymotheï Lanouette</p>
+    </footer>
+  </body>
+</html>

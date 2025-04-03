@@ -1,0 +1,41 @@
+// blocks/_gallery.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.image-gallery-block {
+  margin: $spacing-lg 0;
+
+  @include respond-to(sm) {
+    margin: $spacing-md 0;
+  }
+
+  h3 {
+    margin: 0 0 $spacing-md;
+
+    @include respond-to(xs) {
+      font-size: 1.2rem;
+    }
+  }
+
+  .gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    @include respond-to(xs) {
+      gap: $spacing-sm;
+      flex-direction: column;
+    }
+  }
+
+  .gallery-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+
+    @include respond-to(xs) {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}

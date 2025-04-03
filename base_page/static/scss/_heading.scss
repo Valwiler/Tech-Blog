@@ -1,0 +1,46 @@
+// blocks/_heading.scss
+@import '../../../tech_blog_wagtail/static/scss/variables';
+@import '../../../tech_blog_wagtail/static/scss/mixins';
+
+.heading-block {
+  margin: $spacing-md 0;
+  font-weight: bold;
+  line-height: 1.3;
+  color: $color-text;
+
+  // Responsive styles for different heading sizes
+  h1.heading-block {
+    font-size: $font-size-h1;
+  }
+
+  h2.heading-block {
+    font-size: $font-size-h2;
+  }
+
+  h3.heading-block {
+    font-size: $font-size-h3;
+  }
+
+  h4.heading-block {
+    font-size: $font-size-h4;
+  }
+
+  h5.heading-block {
+    font-size: $font-size-h5;
+  }
+
+  h6.heading-block {
+    font-size: $font-size-h6;
+  }
+
+  // Smaller margins and increased spacing for mobile
+  @include respond-to(sm) {
+    margin: $spacing-sm 0;
+    line-height: 1.4;
+  }
+
+  @include respond-to(xs) {
+    margin: $spacing-xs 0;
+    line-height: 1.5;
+  }
+}
