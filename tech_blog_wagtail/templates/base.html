@@ -8,6 +8,7 @@
   <title>{% block title %}My Tech Blog{% endblock %}</title>
   {% block head%}
   {% endblock head%}
+  {% include "wagtailseo/meta.html" %}
   {% compress css %}
     <link type="text/x-scss" href="{% static 'scss/main.scss' %}"     rel="stylesheet" media="screen">
   {% endcompress %}
@@ -29,7 +30,9 @@
       <nav>
         {% flat_menu "footer" max_levels=1 %}
       </nav>
-        <p>&copy; {{ now|date:"Y" }} - Tymotheï Lanouette</p>
+        <p>&copy; {% now "Y" %} - Tymotheï Lanouette</p>
     </footer>
+    {% include "wagtailseo/struct_data.html" %}
+    {% block seoinfo %}{% endblock %}
   </body>
 </html>

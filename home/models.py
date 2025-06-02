@@ -1,14 +1,14 @@
-from django.db import models
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel
-from wagtail import blocks
-from wagtail.images.blocks import ImageChooserBlock
-
 from base_page.blocks import *
+from django.db import models
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.models import Page
+from wagtailseo.models import SeoMixin
 
 
-class HomePage(Page):
+class HomePage(SeoMixin, Page):
     """A simple homepage model with a hero banner and a streamfield body."""
 
     hero_title = models.CharField(max_length=250, blank=True, null=True)
@@ -17,9 +17,10 @@ class HomePage(Page):
         CommonBlockStream(),  # uses the blocks defined in blocks.py
         null=True,
         blank=True,
-        use_json_field=True, 
+        use_json_field=True,
     )
 
+    promote_panels = SeoMixin.seo_panels
     content_panels = Page.content_panels + [
         FieldPanel("hero_title"),
         FieldPanel("hero_subtitle"),
