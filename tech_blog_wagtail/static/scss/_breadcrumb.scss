@@ -1,0 +1,215 @@
+// _breadcrumb.scss
+@import 'variables';
+@import 'mixins';
+
+.breadcrumb {
+  margin: $spacing-md 0 $spacing-lg;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $font-size-sm;
+  
+  @include respond-to(sm) {
+    margin: $spacing-sm 0 $spacing-md;
+    font-size: $font-size-xs;
+  }
+  
+  // Breadcrumb list
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-xs;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+    // Separator
+    &:not(:last-child)::after {
+      content: '/';
+      margin: 0 $spacing-xs;
+      color: var(--text-muted);
+      font-weight: 300;
+      
+      // Alternative separators
+      [data-breadcrumb-separator="chevron"] & {
+        content: '›';
+      }
+      
+      [data-breadcrumb-separator="arrow"] & {
+        content: '→';
+      }
+      
+      [data-breadcrumb-separator="dot"] & {
+        content: '•';
+      }
+    }
+    
+    // Mobile: hide middle items
+    @include respond-to(xs) {
+      &:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
+        display: none;
+      }
+      
+      &:nth-last-child(2)::after {
+        content: '...';
+      }
+    }
+  }
+  
+  a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: $spacing-xs/2 $spacing-xs;
+    border-radius: $radius-sm;
+    transition: all $transition-fast;
+    position: relative;
+    
+    // Hover state
+    &:hover {
+      color: var(--brand-primary);
+      background: var(--interactive-bg);
+    }
+    
+    // Focus state
+    &:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+    
+    // Active/pressed state
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+  
+  // Current page (last item)
+  .current {
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: $spacing-xs/2 $spacing-xs;
+    
+    // Add subtle background
+    background: var(--bg-secondary);
+    border-radius: $radius-sm;
+    
+    // Ensure it's not a link
+    &[aria-current="page"] {
+      cursor: default;
+    }
+  }
+  
+  // Home icon for first item
+  li:first-child a {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    
+    &::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: currentColor;
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>') no-repeat center;
+      mask-size: contain;
+      -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>') no-repeat center;
+      -webkit-mask-size: contain;
+    }
+    
+    // Hide "Home" text on mobile
+    @include respond-to(xs) {
+      span {
+        position: absolute;
+        left: -9999px;
+      }
+    }
+  }
+}
+
+// Schema.org microdata styles
+.breadcrumb[itemscope] {
+  // Visual indicator for structured data (dev mode only)
+  @if $debug-mode {
+    &::before {
+      content: 'Schema.org BreadcrumbList';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      font-size: 10px;
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+  }
+}
+
+// Alternative breadcrumb styles
+.breadcrumb--pills {
+  li {
+    &:not(:last-child)::after {
+      display: none;
+    }
+  }
+  
+  a, .current {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    
+    &:hover {
+      background: var(--interactive-bg);
+      border-color: var(--brand-primary);
+    }
+  }
+  
+  .current {
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+    border-color: var(--brand-primary);
+  }
+}
+
+// Breadcrumb with background
+.breadcrumb--contained {
+  background: var(--bg-secondary);
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  margin: $spacing-lg 0;
+  
+  @include respond-to(sm) {
+    padding: $spacing-xs $spacing-sm;
+  }
+}
+
+// Animated breadcrumb
+@keyframes breadcrumbSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.breadcrumb--animated {
+  li {
+    animation: breadcrumbSlide 0.3s ease-out backwards;
+    
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+      }
+    }
+  }
+}

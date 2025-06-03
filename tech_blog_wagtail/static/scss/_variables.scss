@@ -3,6 +3,10 @@
 // All theme customization should be done in _themes.scss
 @import 'theme';
 
+// DEBUG
+
+$debug-mode: true;
+
 // COLORS (using CSS custom properties)
 $color-text: var(--text-primary);
 $color-text-secondary: var(--text-secondary);

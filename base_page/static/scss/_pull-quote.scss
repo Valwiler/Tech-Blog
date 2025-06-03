@@ -34,6 +34,18 @@
     }
   }
 
+
+
+.pull-quote-text {
+  font-size: $font-size-xl;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-bottom: $spacing-md;
+  position: relative;
+  z-index: 1;
+
   &::before {
     content: '"';
     top: -10px;
@@ -46,16 +58,6 @@
     right: 10px;
   }
 }
-
-.pull-quote-text {
-  font-size: $font-size-xl;
-  line-height: 1.5;
-  font-style: italic;
-  color: var(--text-primary);
-  font-weight: 400;
-  margin-bottom: $spacing-md;
-  position: relative;
-  z-index: 1;
 
   @include respond-to(sm) {
     font-size: $font-size-lg;
@@ -88,7 +90,7 @@
   margin-top: $spacing-md;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   gap: $spacing-sm;
 
   &::before {

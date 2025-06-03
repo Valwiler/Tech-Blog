@@ -103,7 +103,10 @@ footer {
     margin: 0;
   }
 }
-
+ .logo {
+  display: flex;
+  align-items: center;
+ }
 // Skip to content link for accessibility
 .skip-to-content {
   position: absolute;

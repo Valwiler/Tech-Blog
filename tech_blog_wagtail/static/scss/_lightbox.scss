@@ -1,0 +1,221 @@
+// _lightbox.scss
+@import 'variables';
+@import 'mixins';
+
+.gallery-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-base;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // Lightbox content
+  .lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    img {
+      max-width: 100%;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: $radius-lg;
+      box-shadow: $shadow-2xl;
+      animation: lightboxZoom 0.3s ease-out;
+    }
+  }
+
+  @keyframes lightboxZoom {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  // Caption
+  .lightbox-caption {
+    margin-top: $spacing-md;
+    padding: $spacing-sm $spacing-md;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: $font-size-sm;
+    text-align: center;
+    border-radius: $radius-md;
+    max-width: 600px;
+    
+    @include respond-to(sm) {
+      font-size: $font-size-xs;
+      padding: $spacing-xs $spacing-sm;
+    }
+  }
+
+  // Image counter
+  .lightbox-counter {
+    position: absolute;
+    bottom: $spacing-md;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: $spacing-xs $spacing-sm;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: $font-size-sm;
+    border-radius: $radius-full;
+    
+    @include respond-to(sm) {
+      bottom: $spacing-sm;
+      font-size: $font-size-xs;
+    }
+  }
+
+  // Close button
+  .lightbox-close {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: white;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+    
+    @include respond-to(sm) {
+      top: $spacing-sm;
+      right: $spacing-sm;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+    }
+  }
+
+  // Navigation buttons
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: white;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    &.prev {
+      left: $spacing-md;
+      
+      @include respond-to(sm) {
+        left: $spacing-sm;
+      }
+    }
+
+    &.next {
+      right: $spacing-md;
+      
+      @include respond-to(sm) {
+        right: $spacing-sm;
+      }
+    }
+    
+    @include respond-to(sm) {
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+    }
+  }
+
+  // Touch gesture hint for mobile
+  @include respond-to(sm) {
+    &::after {
+      content: 'Swipe to navigate';
+      position: absolute;
+      bottom: calc(#{$spacing-md} + 40px);
+      left: 50%;
+      transform: translateX(-50%);
+      padding: $spacing-xs $spacing-sm;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: $font-size-xs;
+      border-radius: $radius-full;
+      opacity: 0;
+      animation: fadeInOut 3s ease-out;
+    }
+
+    &.active::after {
+      animation-delay: 0.5s;
+    }
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+  }
+}
+
+// Prevent body scroll when lightbox is open
+body.lightbox-open {
+  overflow: hidden;
+}

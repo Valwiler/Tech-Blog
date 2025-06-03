@@ -1,0 +1,51 @@
+{% load wagtailcore_tags %}
+<!-- breadcrumb.html - Accessible breadcrumb with Schema.org structured data -->
+
+{% if page and page.get_ancestors|length > 1 %}
+  <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+      <!-- Home -->
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="/" itemprop="item">
+          <span itemprop="name">Home</span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </li>
+
+      <!-- Ancestor pages -->
+      {% for ancestor in page.get_ancestors %}
+        {% if not ancestor.is_root and ancestor.show_in_menus %}
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ ancestor.url }}" itemprop="item">
+              <span itemprop="name">{{ ancestor.title }}</span>
+            </a>
+            <meta itemprop="position" content="{{ forloop.counter|add:1 }}" />
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      <!-- Current page -->
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="current">
+        <span itemprop="name" aria-current="page">{{ page.title }}</span>
+        <meta itemprop="position" content="{{ page.get_ancestors|length }}" />
+      </li>
+    </ol>
+  </nav>
+{% endif %}
+
+<!-- Alternative simpler version without Schema.org -->
+{% comment %}
+{% if page and page.get_ancestors|length > 1 %}
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="/">Home</a></li>
+      {% for ancestor in page.get_ancestors %}
+        {% if not ancestor.is_root %}
+          <li><a href="{{ ancestor.url }}">{{ ancestor.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+      <li class="current" aria-current="page">{{ page.title }}</li>
+    </ol>
+  </nav>
+{% endif %}
+{% endcomment %}

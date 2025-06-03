@@ -50,13 +50,9 @@
     <div class="container">
       <nav aria-label="Main navigation">
         <a href="/" class="logo" aria-label="Home">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="8" fill="var(--brand-primary)"/>
-            <path d="M12 20L16 24L28 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="{% static 'img/icon.webp' %}" style="width: 40px; height: 40px;">
           <span class="logo-text">Tech Blog</span>
         </a>
-
         <!-- Mobile menu toggle -->
         <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span>
@@ -74,22 +70,10 @@
   </header>
 
   <!-- Main content -->
-  <main id="main-content" role="main">
+ <main id="main-content" role="main">
     <div class="container">
       {% block breadcrumb %}
-        {% if page and page.get_ancestors|length > 1 %}
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <ol>
-              <li><a href="/">Home</a></li>
-              {% for ancestor in page.get_ancestors %}
-                {% if ancestor.is_root == False %}
-                  <li><a href="{{ ancestor.url }}">{{ ancestor.title }}</a></li>
-                {% endif %}
-              {% endfor %}
-              <li class="current" aria-current="page">{{ page.title }}</li>
-            </ol>
-          </nav>
-        {% endif %}
+        {% include "breadcrumb.html" %}
       {% endblock %}
 
       {% block content %}{% endblock %}

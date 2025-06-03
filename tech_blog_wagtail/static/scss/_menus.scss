@@ -238,7 +238,7 @@ nav {
     width: 48px;
     height: 48px;
     position: relative;
-    z-index: var(--z-modal);
+    // z-index: var(--z-modal);
 
     span {
       display: block;
@@ -246,9 +246,13 @@ nav {
       height: 2px;
       background: currentColor;
       transition: all $transition-fast;
+      z-index: calc(var(--z-modal) + 1);
     }
 
     &.active {
+      span {
+        z-index: calc(var(--z-modal) + 5);
+      }
       span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
       }

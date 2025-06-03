@@ -179,8 +179,9 @@
 
   // Button styles
   .blog-card-button-wrapper {
-    margin-top: auto;
+    margin: auto;
     padding-top: $spacing-sm;
+    padding-bottom: $spacing-xs;
   }
 
   .blog-card-button {
@@ -189,7 +190,7 @@
     gap: $spacing-xs;
     padding: $spacing-sm $spacing-md;
     background: var(--brand-primary);
-    color: var(--text-on-brand);
+    color: $color-text;
     text-decoration: none;
     font-weight: 500;
     font-size: $font-size-sm;

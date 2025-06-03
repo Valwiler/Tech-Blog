@@ -1,14 +1,57 @@
 {% load menu_tags %}
 
-<ul class="main-menu">
-    {% for item in menu_items %}
-      <li class="{% if item.is_current %}active{% endif %}">
-        <a href="{{ item.href }}">{{ item.text }}</a>
+<ul class="main-menu" role="menubar" aria-label="Main navigation">
+  {% for item in menu_items %}
+    <li role="none" class="{% if item.active_class %}{{ item.active_class }}{% endif %}{% if item.has_children_in_menu %} has-submenu{% endif %}">
+      <a
+        href="{{ item.href }}"
+        role="menuitem"
         {% if item.has_children_in_menu %}
-          <ul class="submenu">
-            {% sub_menu item template="menus/sub_menu.html" %}
-          </ul>
+          aria-haspopup="true"
+          aria-expanded="false"
         {% endif %}
-      </li>
-    {% endfor %}
+        {% if item.active_class == 'active' %}
+          aria-current="page"
+        {% endif %}
+      >
+        {{ item.text }}
+      </a>
+
+      {% if item.has_children_in_menu %}
+        <ul class="submenu" role="menu" aria-label="{{ item.text }} submenu">
+          {% for child in item.sub_menu_items %}
+            <li role="none" class="{% if child.active_class %}{{ child.active_class }}{% endif %}">
+              <a
+                href="{{ child.href }}"
+                role="menuitem"
+                {% if child.active_class == 'active' %}
+                  aria-current="page"
+                {% endif %}
+              >
+                {{ child.text }}
+              </a>
+
+              {% if child.has_children_in_menu %}
+                <ul class="submenu submenu--nested" role="menu" aria-label="{{ child.text }} submenu">
+                  {% for grandchild in child.sub_menu_items %}
+                    <li role="none" class="{% if grandchild.active_class %}{{ grandchild.active_class }}{% endif %}">
+                      <a
+                        href="{{ grandchild.href }}"
+                        role="menuitem"
+                        {% if grandchild.active_class == 'active' %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{ grandchild.text }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
 </ul>

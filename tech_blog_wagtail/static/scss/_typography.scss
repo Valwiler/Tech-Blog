@@ -97,7 +97,9 @@ p {
 }
 
 // Links within text
-a:not(.button):not(.cta-button) {
+// a:not(.button):not(.cta-button)
+// > a:not(.button):not(.blog-card-button)
+a:not(.button):not(.cta-button):not(.blog-card-button) {
   color: var(--brand-primary);
   text-decoration: underline;
   text-decoration-color: transparent;
