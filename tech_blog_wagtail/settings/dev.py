@@ -11,6 +11,16 @@ ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get("SQL_ENGINE"),
+        'NAME': os.environ.get("SQL_DATABASE"),
+        'USER': os.environ.get("SQL_USER"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD"),  # yourpassword
+        'HOST': os.environ.get("SQL_HOST"),  # Set to empty string for localhost.
+        'PORT': os.environ.get("SQL_PORT"),  # Set to empty string for default.
+    }
+}
 
 try:
     from .local import *

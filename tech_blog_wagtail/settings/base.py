@@ -92,12 +92,16 @@ WSGI_APPLICATION = "tech_blog_wagtail.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "tech_blog",
+        'USER': 'postgres',
+        'PASSWORD': '',  # yourpassword
+        'HOST': '127.0.0.1',  # Set to empty string for localhost.
+        'PORT': '',  # Set to empty string for default.
+        'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -147,10 +151,10 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "public/static")
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "public/media")
 MEDIA_URL = "/media/"
 
 # Default storage settings, with the staticfiles storage updated.
