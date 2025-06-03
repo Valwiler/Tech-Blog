@@ -3,23 +3,233 @@
 @import '../../../tech_blog_wagtail/static/scss/mixins';
 
 .code-block {
-  background: $color-bg-code;
-  padding: $spacing-md;
-  overflow-x: auto;
-  margin: $spacing-md 0;
-  border-radius: $radius-md;
+  position: relative;
+  margin: $spacing-lg 0;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
 
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: var(--brand-primary);
+  }
+
+  // Language label
+  &::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: $spacing-xs $spacing-sm;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: $font-size-xs;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom-left-radius: $radius-md;
+  }
+
+  // Language-specific labels
+  &.language-python::before { content: 'Python'; }
+  &.language-javascript::before { content: 'JavaScript'; }
+  &.language-html::before { content: 'HTML'; }
+  &.language-css::before { content: 'CSS'; }
+  &.language-scss::before { content: 'SCSS'; }
+  &.language-typescript::before { content: 'TypeScript'; }
+  &.language-jsx::before { content: 'JSX'; }
+  &.language-tsx::before { content: 'TSX'; }
+  &.language-json::before { content: 'JSON'; }
+  &.language-yaml::before { content: 'YAML'; }
+  &.language-bash::before { content: 'Bash'; }
+  &.language-shell::before { content: 'Shell'; }
+  &.language-sql::before { content: 'SQL'; }
+
+  // Code content
+  pre {
+    margin: 0;
+    padding: $spacing-lg;
+    padding-top: calc(#{$spacing-lg} + 24px); // Account for language label
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-family: $font-family-mono;
+    font-size: $font-size-sm;
+    line-height: 1.6;
+    color: var(--code-text);
+    tab-size: 2;
+
+    @include respond-to(sm) {
+      padding: $spacing-md;
+      padding-top: calc(#{$spacing-md} + 24px);
+      font-size: $font-size-xs;
+    }
+  }
+
+  code {
+    font-family: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  // Copy button
+  .code-copy-button {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    padding: $spacing-xs $spacing-sm;
+    background: var(--interactive-bg);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: $radius-md;
+    font-size: $font-size-xs;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-fast;
+    opacity: 0;
+
+    &:hover {
+      background: var(--brand-primary);
+      color: var(--text-on-brand);
+      border-color: var(--brand-primary);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.copied {
+      background: var(--brand-success);
+      color: var(--text-on-brand);
+      border-color: var(--brand-success);
+    }
+  }
+
+  &:hover .code-copy-button {
+    opacity: 1;
+  }
+
+  // Line numbers
+  &.line-numbers {
+    pre {
+      padding-left: 3.5rem;
+      position: relative;
+    }
+
+    .line-numbers-rows {
+      position: absolute;
+      left: 0;
+      top: calc(#{$spacing-lg} + 24px);
+      width: 3rem;
+      text-align: right;
+      padding-right: $spacing-sm;
+      color: var(--text-muted);
+      user-select: none;
+      pointer-events: none;
+
+      span {
+        display: block;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  // Syntax highlighting classes
+  .token {
+    &.comment,
+    &.prolog,
+    &.doctype,
+    &.cdata {
+      color: var(--code-comment);
+      font-style: italic;
+    }
+
+    &.punctuation {
+      color: var(--text-tertiary);
+    }
+
+    &.property,
+    &.tag,
+    &.boolean,
+    &.number,
+    &.constant,
+    &.symbol,
+    &.deleted {
+      color: var(--brand-danger);
+    }
+
+    &.selector,
+    &.attr-name,
+    &.string,
+    &.char,
+    &.builtin,
+    &.inserted {
+      color: var(--code-string);
+    }
+
+    &.operator,
+    &.entity,
+    &.url,
+    &.language-css .string,
+    &.style .string {
+      color: var(--brand-warning);
+    }
+
+    &.atrule,
+    &.attr-value,
+    &.keyword {
+      color: var(--code-keyword);
+    }
+
+    &.function,
+    &.class-name {
+      color: var(--brand-accent);
+    }
+
+    &.regex,
+    &.important,
+    &.variable {
+      color: var(--brand-secondary);
+    }
+
+    &.important,
+    &.bold {
+      font-weight: 600;
+    }
+
+    &.italic {
+      font-style: italic;
+    }
+  }
+
+  // Highlighted lines
+  .highlight-line {
+    display: block;
+    margin: 0 calc(-1 * #{$spacing-lg});
+    padding: 0 $spacing-lg;
+    background: var(--interactive-bg);
+    border-left: 3px solid var(--brand-primary);
+  }
+
+  // Responsive adjustments
   @include respond-to(sm) {
-    padding: $spacing-sm;
+    margin: $spacing-md 0;
+    border-radius: $radius-md;
   }
+}
 
-  @include respond-to(xs) {
-    font-size: 0.9rem;
-    padding: $spacing-xs;
-  }
-  // language-based styling
-  // &.language-python {}
-  // &.language-javascript {}
-  // &.language-html {}
-  // &.language-css {}
+// Inline code (outside of code blocks)
+:not(pre) > code {
+  font-family: $font-family-mono;
+  font-size: 0.875em;
+  padding: 0.125em 0.375em;
+  background: var(--code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--code-border);
+  border-radius: $radius-sm;
+  white-space: nowrap;
 }

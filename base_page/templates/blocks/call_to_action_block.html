@@ -1,11 +1,18 @@
-<section class="cta-block">
-    <h3>{{ self.title }}</h3>
-    {% if self.text %}
-      <p>{{ self.text }}</p>
+{% load static wagtailcore_tags %}
+<section class="cta-block" role="region" aria-labelledby="cta-{{ self.id }}">
+  <h3 id="cta-{{ self.id }}">{{ self.title }}</h3>
+  {% if self.text %}
+    <p>{{ self.text }}</p>
+  {% endif %}
+  {% with button=self.button %}
+    {% if button.url %}
+      <a {{ button.url }} class="cta-button">
+        <span>{{ button.title|default:"Learn More" }}</span>
+      </a>
     {% endif %}
-    {%with button=self.button%}
-    <a {{ button.url }} class="cta-button">
-      {{ button.title }}
-    </a>
-    {% endwith %}
+  {% endwith %}
 </section>
+
+
+
+

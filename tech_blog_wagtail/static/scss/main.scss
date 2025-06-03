@@ -1,6 +1,9 @@
-// main.scss
+// main.scss - Main stylesheet entry point
 
-// Global and Utility partials Imports
+// Theme configuration - MUST be imported first
+@import 'theme';
+
+// Global and Utility partials
 @import 'variables';
 @import 'mixins';
 @import 'base';
@@ -17,3 +20,9 @@
 @import '../../../base_page/static/scss/embed-video';
 @import '../../../base_page/static/scss/blog_card';
 @import '../../../base_page/static/scss/blog_cards_list';
+
+// Additional utility classes
+@import 'utilities';
+
+// Print styles
+@import 'print';

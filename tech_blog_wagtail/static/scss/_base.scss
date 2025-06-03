@@ -2,40 +2,261 @@
 @import 'variables';
 @import 'mixins';
 
-* {
+// Reset and Base Styles
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
-body {
+* {
   margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
   font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: 1.6;
   color: $color-text;
   background-color: $color-bg-default;
+  transition: background-color $transition-base, color $transition-base;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-// Container: center with dynamic width
+// Main content should grow to fill available space
+main {
+  flex: 1;
+}
+
+// Container with modern responsive behavior
 .container {
-  width: 80%;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: $spacing-xl 0;
+  padding: 0 $spacing-md;
 
   @include respond-to(sm) {
-    width: 95%;
-    padding: $spacing-lg 0;
+    padding: 0 $spacing-sm;
   }
 
-  @include respond-to(xs) {
-    width: 100%;
-    padding: $spacing-md 0;
+  &--wide {
+    max-width: 1440px;
+  }
+
+  &--narrow {
+    max-width: 800px;
   }
 }
 
-header,
-footer {
-  background: $color-bg-default;
+// Header with glass morphism effect
+header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--header-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-primary);
   padding: $spacing-md 0;
+  transition: all $transition-base;
 
   @include respond-to(sm) {
     padding: $spacing-sm 0;
+  }
+}
+
+// Footer styling
+footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  padding: $spacing-xl 0 $spacing-lg;
+  margin-top: $spacing-2xl;
+
+  @include respond-to(sm) {
+    padding: $spacing-lg 0 $spacing-md;
+    margin-top: $spacing-xl;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    @include respond-to(sm) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+// Skip to content link for accessibility
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: var(--z-tooltip);
+  padding: $spacing-sm $spacing-md;
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+  text-decoration: none;
+  border-radius: $radius-md;
+
+  &:focus {
+    position: fixed;
+    top: $spacing-md;
+    left: $spacing-md;
+    outline: 3px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+}
+
+// Focus styles for accessibility
+:focus {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+// Links
+a {
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--brand-secondary);
+    text-decoration: underline;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Loading states
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--brand-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+// Utility classes
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Theme toggle button
+.theme-toggle {
+  position: fixed;
+  bottom: $spacing-md;
+  right: $spacing-md;
+  z-index: var(--z-fixed);
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-full;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  transition: all $transition-fast;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: $shadow-lg;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-primary);
+  }
+
+  @include respond-to(sm) {
+    bottom: $spacing-sm;
+    right: $spacing-sm;
+  }
+}
+
+// Print styles
+@media print {
+  header,
+  footer,
+  .theme-toggle,
+  .skip-to-content {
+    display: none;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
   }
 }

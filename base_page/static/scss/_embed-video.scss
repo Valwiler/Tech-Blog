@@ -3,15 +3,177 @@
 @import '../../../tech_blog_wagtail/static/scss/mixins';
 
 .embed-video-block {
-  margin: $spacing-lg 0;
+  margin: $spacing-xl 0;
+  position: relative;
+  width: 100%;
   max-width: 100%;
+  background: var(--bg-secondary);
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
 
   @include respond-to(sm) {
-    margin: $spacing-md 0;
+    margin: $spacing-lg 0;
+    border-radius: $radius-md;
   }
 
   @include respond-to(xs) {
-    margin: $spacing-sm 0;
-    max-width: 100%;
+    margin: $spacing-md 0;
+  }
+
+  // Responsive 16:9 aspect ratio container
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%; // 16:9 aspect ratio
+    height: 0;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+
+    // Support for other aspect ratios
+    &--4by3 {
+      padding-bottom: 75%; // 4:3
+    }
+
+    &--21by9 {
+      padding-bottom: 42.86%; // 21:9
+    }
+
+    &--1by1 {
+      padding-bottom: 100%; // 1:1
+    }
+
+    iframe,
+    embed,
+    object,
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  // Default iframe styling (if not wrapped in embed-container)
+  iframe {
+    width: 100%;
+    min-height: 400px;
+    border: 0;
+
+    @include respond-to(sm) {
+      min-height: 300px;
+    }
+
+    @include respond-to(xs) {
+      min-height: 200px;
+    }
+  }
+
+  // Loading skeleton
+  &.loading {
+    .embed-container {
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        z-index: 1;
+      }
+
+      &::after {
+        content: '▶';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: var(--text-muted);
+        opacity: 0.3;
+        z-index: 2;
+      }
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  // Video caption
+  .video-caption {
+    padding: $spacing-sm $spacing-md;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-size: $font-size-sm;
+    text-align: center;
+    border-top: 1px solid var(--border-primary);
+  }
+
+  // Play button overlay (for custom video players)
+  .video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    z-index: 3;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.5);
+
+      .play-button {
+        transform: scale(1.1);
+      }
+    }
+
+    .play-button {
+      width: 80px;
+      height: 80px;
+      background: var(--brand-primary);
+      border-radius: $radius-full;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: $shadow-lg;
+      transition: transform $transition-fast;
+
+      &::before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 24px solid white;
+        border-top: 16px solid transparent;
+        border-bottom: 16px solid transparent;
+        margin-left: 6px;
+      }
+    }
+  }
+
+  // Focus styles for accessibility
+  &:focus-within {
+    outline: 3px solid var(--border-focus);
+    outline-offset: 3px;
   }
 }

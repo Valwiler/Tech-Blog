@@ -3,36 +3,139 @@
 @import '../../../tech_blog_wagtail/static/scss/mixins';
 
 .pull-quote-block {
-  border-left: 4px solid $color-border;
-  margin: $spacing-lg 0;
-  padding-left: $spacing-md;
-  font-style: italic;
+  position: relative;
+  margin: $spacing-xl auto;
+  padding: $spacing-lg;
+  max-width: 800px;
+  text-align: center;
 
   @include respond-to(sm) {
-    margin: $spacing-md 0;
-    padding-left: $spacing-sm;
+    margin: $spacing-lg auto;
+    padding: $spacing-md;
   }
 
   @include respond-to(xs) {
-    font-size: 0.9rem;
+    padding: $spacing-sm;
+  }
+
+  // Decorative quotes
+  &::before,
+  &::after {
+    position: absolute;
+    font-family: Georgia, serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--brand-primary);
+    opacity: 0.15;
+    font-weight: 700;
+
+    @include respond-to(sm) {
+      font-size: 3rem;
+    }
+  }
+
+  &::before {
+    content: '"';
+    top: -10px;
+    left: 10px;
+  }
+
+  &::after {
+    content: '"';
+    bottom: -40px;
+    right: 10px;
   }
 }
 
 .pull-quote-text {
-  font-size: 1.2rem;
+  font-size: $font-size-xl;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-bottom: $spacing-md;
+  position: relative;
+  z-index: 1;
+
+  @include respond-to(sm) {
+    font-size: $font-size-lg;
+    line-height: 1.4;
+  }
 
   @include respond-to(xs) {
-    font-size: 1rem;
+    font-size: $font-size-base;
+  }
+
+  // Gradient text effect for modern look
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-primary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  // Fallback for browsers that don't support background-clip
+  @supports not (-webkit-background-clip: text) {
+    background: none;
+    -webkit-text-fill-color: var(--text-primary);
+    color: var(--text-primary);
   }
 }
 
 .pull-quote-attribution {
-  text-align: right;
-  margin-top: $spacing-sm;
-  font-weight: bold;
+  font-size: $font-size-sm;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-top: $spacing-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 2px;
+    background: var(--brand-primary);
+    display: inline-block;
+  }
 
   @include respond-to(xs) {
-    text-align: center;
-    margin-top: $spacing-xs;
+    font-size: $font-size-xs;
+  }
+}
+
+// Alternative style: Left-aligned pull quote
+.pull-quote-block--left {
+  text-align: left;
+  border-left: 4px solid var(--brand-primary);
+  padding-left: $spacing-lg;
+  background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
+
+  &::before {
+    left: $spacing-md;
+    top: $spacing-sm;
+  }
+
+  &::after {
+    display: none;
+  }
+
+  .pull-quote-text {
+    font-size: $font-size-lg;
+  }
+
+  .pull-quote-attribution {
+    justify-content: flex-start;
+  }
+}
+
+// Dark theme adjustments
+[data-theme="dark"] {
+  .pull-quote-text {
+    // Adjust gradient for dark theme
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-accent) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }

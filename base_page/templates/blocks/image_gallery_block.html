@@ -1,13 +1,13 @@
 {% load wagtailimages_tags %}
-<div class="image-gallery-block">
-    {% if self.gallery_title %}
-      <h3>{{ self.gallery_title }}</h3>
-    {% endif %}
-    <div class="gallery-images">
-      {% for image in self.images %}
-        <div class="gallery-image">
-          {% image image original %}
-        </div>
-      {% endfor %}
-    </div>
+<div class="image-gallery-block" role="region" aria-label="Image gallery">
+  {% if self.gallery_title %}
+    <h3>{{ self.gallery_title }}</h3>
+  {% endif %}
+  <div class="gallery-images">
+    {% for image in self.images %}
+      <div class="gallery-image" role="button" tabindex="0" aria-label="View larger image: {{ image.title }}">
+        {% image image fill-400x400 loading="lazy" alt=image.title %}
+      </div>
+    {% endfor %}
+  </div>
 </div>

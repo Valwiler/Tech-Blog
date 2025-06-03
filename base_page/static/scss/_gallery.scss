@@ -3,39 +3,244 @@
 @import '../../../tech_blog_wagtail/static/scss/mixins';
 
 .image-gallery-block {
-  margin: $spacing-lg 0;
+  margin: $spacing-xl 0;
 
   @include respond-to(sm) {
-    margin: $spacing-md 0;
+    margin: $spacing-lg 0;
   }
 
   h3 {
-    margin: 0 0 $spacing-md;
+    margin: 0 0 $spacing-lg;
+    font-size: $font-size-h3;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
 
-    @include respond-to(xs) {
-      font-size: 1.2rem;
+    @include respond-to(sm) {
+      margin-bottom: $spacing-md;
+      font-size: $font-size-h4;
+    }
+  }
+}
+
+.gallery-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-md;
+  padding: 0;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: $spacing-sm;
+  }
+
+  @include respond-to(xs) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gallery-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-lg;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all $transition-base;
+  aspect-ratio: 1 / 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+    opacity: 0;
+    transition: opacity $transition-base;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '⊕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: white;
+    font-size: 2rem;
+    z-index: 2;
+    transition: transform $transition-base;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: $shadow-lg;
+
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    img {
+      transform: scale(1.1);
     }
   }
 
-  .gallery-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $spacing-md;
-
-    @include respond-to(xs) {
-      gap: $spacing-sm;
-      flex-direction: column;
-    }
+  &:active {
+    transform: scale(0.98);
   }
 
-  .gallery-image img {
-    max-width: 100%;
-    height: auto;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
+    transition: transform $transition-slow;
+  }
 
-    @include respond-to(xs) {
-      max-width: 100%;
-      height: auto;
+  @include respond-to(xs) {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+// Grid layout variations
+.gallery-images--masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 200px;
+  grid-auto-flow: dense;
+  gap: $spacing-md;
+
+  .gallery-image {
+    &:nth-child(4n + 1) {
+      grid-row-end: span 2;
+      aspect-ratio: auto;
+    }
+
+    &:nth-child(4n + 3) {
+      grid-column-end: span 2;
+      aspect-ratio: auto;
+
+      @include respond-to(sm) {
+        grid-column-end: span 1;
+      }
     }
   }
+
+  @include respond-to(xs) {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+
+    .gallery-image {
+      grid-row-end: span 1 !important;
+      grid-column-end: span 1 !important;
+      aspect-ratio: 16 / 9;
+    }
+  }
+}
+
+// Lightbox overlay
+.gallery-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-base;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  img {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-2xl;
+    animation: lightboxZoom 0.3s ease-out;
+  }
+
+  @keyframes lightboxZoom {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: white;
+    font-size: 24px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: white;
+    font-size: 24px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    &.prev {
+      left: $spacing-md;
+    }
+
+    &.next {
+      right: $spacing-md;
+    }
+  }
+}
+
+// Focus styles for accessibility
+.gallery-image:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 3px;
 }
