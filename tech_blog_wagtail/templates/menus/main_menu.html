@@ -18,39 +18,7 @@
       </a>
 
       {% if item.has_children_in_menu %}
-        <ul class="submenu" role="menu" aria-label="{{ item.text }} submenu">
-          {% for child in item.sub_menu_items %}
-            <li role="none" class="{% if child.active_class %}{{ child.active_class }}{% endif %}">
-              <a
-                href="{{ child.href }}"
-                role="menuitem"
-                {% if child.active_class == 'active' %}
-                  aria-current="page"
-                {% endif %}
-              >
-                {{ child.text }}
-              </a>
-
-              {% if child.has_children_in_menu %}
-                <ul class="submenu submenu--nested" role="menu" aria-label="{{ child.text }} submenu">
-                  {% for grandchild in child.sub_menu_items %}
-                    <li role="none" class="{% if grandchild.active_class %}{{ grandchild.active_class }}{% endif %}">
-                      <a
-                        href="{{ grandchild.href }}"
-                        role="menuitem"
-                        {% if grandchild.active_class == 'active' %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ grandchild.text }}
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+        {% sub_menu item %}
       {% endif %}
     </li>
   {% endfor %}

@@ -1,29 +1,30 @@
-// _themes.scss - Single file theme configuration
-// This file contains all theme variables for easy customization
+// // _themes.scss  ── Modern / Clean palette
+// // Light = Fresh Khaki • Dark = Midnight
 
+/* ---------- Global Brand Palette ---------- */
 :root {
-  // Brand Colors - Customize these for your brand
-  --brand-primary: #3A86FF;
-  --brand-secondary: #8338EC;
-  --brand-accent: #FF006E;
-  --brand-success: #06FFA5;
-  --brand-warning: #FFBE0B;
-  --brand-danger: #FB5607;
+  /* Brand – shared accent hues */
+  --brand-primary: #4f6f52;      // Deep moss
+  --brand-secondary: #8aa37b;    // Sage
+  --brand-accent: #d2b48c;       // Classic khaki
+  --brand-success: #3fa66b;      // Vivid green
+  --brand-warning: #ffb950;      // Soft amber
+  --brand-danger:  #e05a4f;      // Coral red
 
-  // Neutral Colors
-  --neutral-50: #FAFAFA;
-  --neutral-100: #F5F5F5;
-  --neutral-200: #E5E5E5;
-  --neutral-300: #D4D4D4;
-  --neutral-400: #A3A3A3;
-  --neutral-500: #737373;
-  --neutral-600: #525252;
-  --neutral-700: #404040;
-  --neutral-800: #262626;
-  --neutral-900: #171717;
-  --neutral-950: #0A0A0A;
+  /* Neutral scale – cool-neutral baseline */
+  --neutral-50:  #fafdfb;
+  --neutral-100: #f3f6f2;
+  --neutral-200: #e4e9e2;
+  --neutral-300: #d0d7ce;
+  --neutral-400: #adb5ab;
+  --neutral-500: #7f867d;
+  --neutral-600: #616760;
+  --neutral-700: #434844;
+  --neutral-800: #2d302d;
+  --neutral-900: #1c1e1b;
+  --neutral-950: #121312;
 
-  // Typography Scale (fluid typography)
+  /* Scale, spacing, radius, shadows, etc. (unchanged) */
   --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
   --text-sm: clamp(0.875rem, 1.75vw, 1rem);
   --text-base: clamp(1rem, 2vw, 1.125rem);
@@ -34,222 +35,663 @@
   --text-4xl: clamp(2.25rem, 4.5vw, 3rem);
   --text-5xl: clamp(3rem, 6vw, 3.75rem);
 
-  // Spacing Scale
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
+  --space-1: 0.25rem;  --space-2: 0.5rem;  --space-3: 0.75rem;
+  --space-4: 1rem;     --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem;     --space-10: 2.5rem; --space-12: 3rem;
+  --space-16: 4rem;    --space-20: 5rem;   --space-24: 6rem;
 
-  // Border Radius
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
+  --radius-sm: 0.375rem; --radius-md: 0.5rem; --radius-lg: 0.75rem;
+  --radius-xl: 1rem;     --radius-2xl: 1.5rem; --radius-full: 9999px;
 
-  // Shadows
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / .05);
+  --shadow:    0 1px 3px rgb(0 0 0 / .07);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / .08);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / .10);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / .15);
+  --shadow-2xl:0 25px 50px -12px rgb(0 0 0 / .2);
 
-  // Glass effect
-  --glass-blur: blur(10px);
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(14px);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.25);
 
-  // Transitions
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms cubic-bezier(.4,0,.2,1);
+  --transition-base: 250ms cubic-bezier(.4,0,.2,1);
+  --transition-slow: 350ms cubic-bezier(.4,0,.2,1);
 
-  // Z-index scale
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-  --z-fixed: 1030;
-  --z-modal-backdrop: 1040;
-  --z-modal: 1050;
-  --z-popover: 1060;
-  --z-tooltip: 1070;
+  --z-dropdown: 1000; --z-sticky: 1020; --z-fixed: 1030;
+  --z-modal-backdrop: 1040; --z-modal: 1050;
+  --z-popover: 1060; --z-tooltip: 1070;
 }
 
-// Light Theme (default)
+/* ---------- Light • Khaki / Sage ---------- */
 [data-theme="light"] {
-  // Backgrounds
-  --bg-primary: #FFFFFF;
-  --bg-secondary: var(--neutral-50);
-  --bg-tertiary: var(--neutral-100);
-  --bg-elevated: #FFFFFF;
-  --bg-muted: var(--neutral-100);
-  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-primary:   #fafdfb;
+  --bg-secondary: #f3f6f2;
+  --bg-tertiary:  #e8eee5;
+  --bg-elevated:  #ffffff;
+  --bg-muted:     #f3f6f2;
+  --bg-overlay:   rgba(28, 30, 27, .45);
 
-  // Text Colors
-  --text-primary: var(--neutral-900);
-  --text-secondary: var(--neutral-700);
-  --text-tertiary: var(--neutral-600);
-  --text-muted: var(--neutral-500);
-  --text-on-brand: #FFFFFF;
+  --text-primary: #2d302d;   // near-black
+  --text-secondary: #434844;
+  --text-tertiary:  #616760;
+  --text-muted:     #7f867d;
+  --text-on-brand:  #ffffff;
 
-  // Borders
-  --border-primary: var(--neutral-200);
-  --border-secondary: var(--neutral-300);
+  --border-primary: #d0d7ce;
+  --border-secondary: #adb5ab;
   --border-focus: var(--brand-primary);
 
-  // Interactive Elements
-  --interactive-bg: var(--neutral-100);
-  --interactive-bg-hover: var(--neutral-200);
-  --interactive-border: var(--neutral-300);
+  --interactive-bg:        #f3f6f2;
+  --interactive-bg-hover:  #e8eee5;
+  --interactive-border:    #d0d7ce;
 
-  // Code blocks
-  --code-bg: var(--neutral-100);
-  --code-text: var(--neutral-900);
-  --code-border: var(--neutral-200);
-  --code-keyword: var(--brand-primary);
-  --code-string: var(--brand-success);
-  --code-comment: var(--neutral-500);
+  --code-bg:     #f3f6f2;
+  --code-text:   #2d302d;
+  --code-border: #d0d7ce;
+  --code-keyword:#4f6f52;
+  --code-string: #8aa37b;
+  --code-comment:#7f867d;
 
-  // Cards and surfaces
-  --card-bg: #FFFFFF;
-  --card-shadow: var(--shadow-md);
-  --card-shadow-hover: var(--shadow-lg);
+  --card-bg: #ffffff;
+  --card-shadow:       var(--shadow);
+  --card-shadow-hover: var(--shadow-md);
 
-  // Specific component colors
-  --header-bg: rgba(255, 255, 255, 0.8);
-  --menu-bg: var(--neutral-50);
-  --menu-hover-bg: var(--neutral-100);
+  --header-bg: rgba(250, 253, 251, 0.9);
+  --menu-bg: #f3f6f2;
+  --menu-hover-bg: #e8eee5;
 }
 
-// Dark Theme
+/* ---------- Dark • Midnight ---------- */
 [data-theme="dark"] {
-  // Backgrounds
-  --bg-primary: var(--neutral-950);
-  --bg-secondary: var(--neutral-900);
-  --bg-tertiary: var(--neutral-800);
-  --bg-elevated: var(--neutral-900);
-  --bg-muted: var(--neutral-800);
-  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --bg-primary:   #0d1117;  // GitHub-esque midnight
+  --bg-secondary: #161b22;
+  --bg-tertiary:  #1f242d;
+  --bg-elevated:  #161b22;
+  --bg-muted:     #1f242d;
+  --bg-overlay:   rgba(13, 17, 23, .7);
 
-  // Text Colors
-  --text-primary: var(--neutral-50);
-  --text-secondary: var(--neutral-200);
-  --text-tertiary: var(--neutral-300);
-  --text-muted: var(--neutral-400);
-  --text-on-brand: #FFFFFF;
+  --text-primary: #f0f3f8;
+  --text-secondary:#c9d1d9;
+  --text-tertiary: #8b949e;
+  --text-muted:    #6e7681;
+  --text-on-brand: #0d1117;
 
-  // Borders
-  --border-primary: var(--neutral-800);
-  --border-secondary: var(--neutral-700);
-  --border-focus: var(--brand-primary);
+  --border-primary: #30363d;
+  --border-secondary: #424a53;
+  --border-focus: #3a81f1;
 
-  // Interactive Elements
-  --interactive-bg: var(--neutral-800);
-  --interactive-bg-hover: var(--neutral-700);
-  --interactive-border: var(--neutral-700);
+  --interactive-bg:        #1f242d;
+  --interactive-bg-hover:  #262c34;
+  --interactive-border:    #30363d;
 
-  // Code blocks
-  --code-bg: var(--neutral-900);
-  --code-text: var(--neutral-100);
-  --code-border: var(--neutral-800);
-  --code-keyword: #93C5FD;
-  --code-string: #86EFAC;
-  --code-comment: var(--neutral-500);
+  --code-bg:     #161b22;
+  --code-text:   #f0f3f8;
+  --code-border: #30363d;
+  --code-keyword:#3a81f1;  // Electric blue punch
+  --code-string: #58d67a;  // Terminal green
+  --code-comment:#6e7681;
 
-  // Cards and surfaces
-  --card-bg: var(--neutral-900);
-  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --card-bg: #161b22;
+  --card-shadow:       var(--shadow-sm);
+  --card-shadow-hover: var(--shadow);
 
-  // Specific component colors
-  --header-bg: rgba(10, 10, 10, 0.8);
-  --menu-bg: var(--neutral-900);
-  --menu-hover-bg: var(--neutral-800);
+  --header-bg: rgba(13, 17, 23, 0.85);
+  --menu-bg: #161b22;
+  --menu-hover-bg: #1f242d;
 
-  // Glass effect adjustments for dark mode
-  --glass-bg: rgba(0, 0, 0, 0.3);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(25, 30, 38, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  /* Slightly brighter brand for dark mode */
+  --brand-primary: #3a81f1;
+  --brand-secondary: #58d67a;
+  --brand-accent: #d2b48c;
 }
 
-// Automatic theme based on system preference
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    // Copy dark theme values here
-    --bg-primary: var(--neutral-950);
-    --bg-secondary: var(--neutral-900);
-    --bg-tertiary: var(--neutral-800);
-    --bg-elevated: var(--neutral-900);
-    --bg-muted: var(--neutral-800);
-    --bg-overlay: rgba(0, 0, 0, 0.7);
-    --text-primary: var(--neutral-50);
-    --text-secondary: var(--neutral-200);
-    --text-tertiary: var(--neutral-300);
-    --text-muted: var(--neutral-400);
-    --text-on-brand: #FFFFFF;
-    --border-primary: var(--neutral-800);
-    --border-secondary: var(--neutral-700);
-    --border-focus: var(--brand-primary);
-    --interactive-bg: var(--neutral-800);
-    --interactive-bg-hover: var(--neutral-700);
-    --interactive-border: var(--neutral-700);
-    --code-bg: var(--neutral-900);
-    --code-text: var(--neutral-100);
-    --code-border: var(--neutral-800);
-    --code-keyword: #93C5FD;
-    --code-string: #86EFAC;
-    --code-comment: var(--neutral-500);
-    --card-bg: var(--neutral-900);
-    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
-    --header-bg: rgba(10, 10, 10, 0.8);
-    --menu-bg: var(--neutral-900);
-    --menu-hover-bg: var(--neutral-800);
-    --glass-bg: rgba(0, 0, 0, 0.3);
-    --glass-border: rgba(255, 255, 255, 0.1);
-  }
-}
-
-// Custom scrollbar styling
+/* ---------- Scrollbar & Selection (reuse) ---------- */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--neutral-400) var(--bg-primary);
+  scrollbar-color: var(--neutral-500) var(--bg-primary);
 }
 
-*::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-*::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
+*::-webkit-scrollbar { width: 12px; height: 12px; }
+*::-webkit-scrollbar-track { background: var(--bg-primary); }
 *::-webkit-scrollbar-thumb {
-  background-color: var(--neutral-400);
+  background-color: var(--neutral-500);
   border-radius: var(--radius-full);
   border: 3px solid var(--bg-primary);
 }
+*::-webkit-scrollbar-thumb:hover { background-color: var(--neutral-400); }
 
-*::-webkit-scrollbar-thumb:hover {
-  background-color: var(--neutral-500);
-}
-
-// Selection colors
-::selection {
+::selection, ::-moz-selection {
   background-color: var(--brand-primary);
   color: var(--text-on-brand);
 }
 
-::-moz-selection {
-  background-color: var(--brand-primary);
-  color: var(--text-on-brand);
-}
+
+
+// _themes.scss - Earthy and soft theme configuration
+// This file contains all theme variables for easy customization
+
+
+// :root {
+//   // Brand Colors - Earthy, natural palette
+//   --brand-primary: #A67B5B;      // Warm terracotta
+//   --brand-secondary: #6B8E7F;    // Sage green
+//   --brand-accent: #D4A574;       // Golden sand
+//   --brand-success: #7FB069;      // Fresh leaf green
+//   --brand-warning: #E9B872;      // Sunset gold
+//   --brand-danger: #C65D47;       // Clay red
+
+//   // Neutral Colors - Warmer, earthier tones
+//   --neutral-50: #FAF8F5;         // Warm white
+//   --neutral-100: #F5F2ED;        // Cream
+//   --neutral-200: #EDE8E0;        // Light beige
+//   --neutral-300: #DDD6CA;        // Sand
+//   --neutral-400: #B8AB9B;        // Warm gray
+//   --neutral-500: #8B7F70;        // Stone
+//   --neutral-600: #6B5D51;        // Dark taupe
+//   --neutral-700: #4A3F35;        // Espresso
+//   --neutral-800: #362D26;        // Dark chocolate
+//   --neutral-900: #241F1A;        // Almost black
+//   --neutral-950: #151210;        // Deep earth
+
+//   // Typography Scale (fluid typography)
+//   --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+//   --text-sm: clamp(0.875rem, 1.75vw, 1rem);
+//   --text-base: clamp(1rem, 2vw, 1.125rem);
+//   --text-lg: clamp(1.125rem, 2.25vw, 1.25rem);
+//   --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+//   --text-2xl: clamp(1.5rem, 3vw, 1.875rem);
+//   --text-3xl: clamp(1.875rem, 3.75vw, 2.25rem);
+//   --text-4xl: clamp(2.25rem, 4.5vw, 3rem);
+//   --text-5xl: clamp(3rem, 6vw, 3.75rem);
+
+//   // Spacing Scale
+//   --space-1: 0.25rem;
+//   --space-2: 0.5rem;
+//   --space-3: 0.75rem;
+//   --space-4: 1rem;
+//   --space-5: 1.25rem;
+//   --space-6: 1.5rem;
+//   --space-8: 2rem;
+//   --space-10: 2.5rem;
+//   --space-12: 3rem;
+//   --space-16: 4rem;
+//   --space-20: 5rem;
+//   --space-24: 6rem;
+
+//   // Border Radius
+//   --radius-sm: 0.375rem;
+//   --radius-md: 0.5rem;
+//   --radius-lg: 0.75rem;
+//   --radius-xl: 1rem;
+//   --radius-2xl: 1.5rem;
+//   --radius-full: 9999px;
+
+//   // Shadows - Softer, warmer shadows
+//   --shadow-sm: 0 1px 2px 0 rgb(139 127 112 / 0.08);
+//   --shadow: 0 1px 3px 0 rgb(139 127 112 / 0.12), 0 1px 2px -1px rgb(139 127 112 / 0.12);
+//   --shadow-md: 0 4px 6px -1px rgb(139 127 112 / 0.12), 0 2px 4px -2px rgb(139 127 112 / 0.12);
+//   --shadow-lg: 0 10px 15px -3px rgb(139 127 112 / 0.12), 0 4px 6px -4px rgb(139 127 112 / 0.12);
+//   --shadow-xl: 0 20px 25px -5px rgb(139 127 112 / 0.12), 0 8px 10px -6px rgb(139 127 112 / 0.12);
+//   --shadow-2xl: 0 25px 50px -12px rgb(139 127 112 / 0.25);
+
+//   // Glass effect
+//   --glass-blur: blur(10px);
+//   --glass-bg: rgba(250, 248, 245, 0.7);
+//   --glass-border: rgba(221, 214, 202, 0.3);
+
+//   // Transitions
+//   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+//   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+//   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+//   // Z-index scale
+//   --z-dropdown: 1000;
+//   --z-sticky: 1020;
+//   --z-fixed: 1030;
+//   --z-modal-backdrop: 1040;
+//   --z-modal: 1050;
+//   --z-popover: 1060;
+//   --z-tooltip: 1070;
+// }
+
+// // Earthy Light Theme (default)
+// [data-theme="light"] {
+//   // Backgrounds - Warm, natural tones
+//   --bg-primary: #FAF8F5;          // Warm white
+//   --bg-secondary: #F5F2ED;        // Cream
+//   --bg-tertiary: #EDE8E0;         // Light beige
+//   --bg-elevated: #FFFFFF;         // Pure white for cards
+//   --bg-muted: #F5F2ED;            // Cream
+//   --bg-overlay: rgba(36, 31, 26, 0.5);
+
+//   // Text Colors - Rich, readable contrasts
+//   --text-primary: #362D26;        // Dark chocolate
+//   --text-secondary: #4A3F35;      // Espresso
+//   --text-tertiary: #6B5D51;       // Dark taupe
+//   --text-muted: #8B7F70;          // Stone
+//   --text-on-brand: #FAF8F5;       // Warm white
+
+//   // Borders - Soft, natural
+//   --border-primary: #DDD6CA;      // Sand
+//   --border-secondary: #B8AB9B;    // Warm gray
+//   --border-focus: var(--brand-primary);
+
+//   // Interactive Elements
+//   --interactive-bg: #F5F2ED;      // Cream
+//   --interactive-bg-hover: #EDE8E0; // Light beige
+//   --interactive-border: #DDD6CA;   // Sand
+
+//   // Code blocks - Warm tones
+//   --code-bg: #F5F2ED;             // Cream
+//   --code-text: #362D26;           // Dark chocolate
+//   --code-border: #DDD6CA;         // Sand
+//   --code-keyword: #A67B5B;        // Terracotta
+//   --code-string: #6B8E7F;         // Sage green
+//   --code-comment: #8B7F70;        // Stone
+
+//   // Cards and surfaces
+//   --card-bg: #FFFFFF;
+//   --card-shadow: 0 4px 6px -1px rgb(139 127 112 / 0.1), 0 2px 4px -2px rgb(139 127 112 / 0.1);
+//   --card-shadow-hover: 0 10px 15px -3px rgb(139 127 112 / 0.15), 0 4px 6px -4px rgb(139 127 112 / 0.15);
+
+//   // Specific component colors
+//   --header-bg: rgba(250, 248, 245, 0.85);
+//   --menu-bg: #F5F2ED;
+//   --menu-hover-bg: #EDE8E0;
+// }
+
+// // Soft Dark Theme - Warmer, less harsh
+// [data-theme="dark"] {
+//   // Backgrounds - Warm dark tones, not pure black
+//   --bg-primary: #2A2520;          // Warm dark brown
+//   --bg-secondary: #332D27;        // Slightly lighter brown
+//   --bg-tertiary: #3D362F;         // Medium brown
+//   --bg-elevated: #332D27;         // Card background
+//   --bg-muted: #3D362F;            // Muted sections
+//   --bg-overlay: rgba(21, 18, 16, 0.7);
+
+//   // Text Colors - Softer contrasts
+//   --text-primary: #F5F2ED;        // Cream
+//   --text-secondary: #DDD6CA;      // Sand
+//   --text-tertiary: #B8AB9B;       // Warm gray
+//   --text-muted: #8B7F70;          // Stone
+//   --text-on-brand: #FAF8F5;       // Warm white
+
+//   // Borders - Subtle and warm
+//   --border-primary: #4A3F35;      // Soft border
+//   --border-secondary: #6B5D51;    // Medium border
+//   --border-focus: #D4A574;        // Golden sand focus
+
+//   // Interactive Elements
+//   --interactive-bg: #3D362F;      // Medium brown
+//   --interactive-bg-hover: #4A3F35; // Lighter on hover
+//   --interactive-border: #4A3F35;
+
+//   // Code blocks - Warm dark theme
+//   --code-bg: #332D27;             // Code background
+//   --code-text: #F5F2ED;           // Cream text
+//   --code-border: #4A3F35;         // Soft border
+//   --code-keyword: #D4A574;        // Golden sand
+//   --code-string: #7FB069;         // Fresh leaf green
+//   --code-comment: #8B7F70;        // Stone comments
+
+//   // Cards and surfaces
+//   --card-bg: #332D27;
+//   --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+//   --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.25);
+
+//   // Specific component colors
+//   --header-bg: rgba(42, 37, 32, 0.85);
+//   --menu-bg: #332D27;
+//   --menu-hover-bg: #3D362F;
+
+//   // Glass effect adjustments for dark mode
+//   --glass-bg: rgba(51, 45, 39, 0.3);
+//   --glass-border: rgba(184, 171, 155, 0.1);
+
+//   // Adjusted brand colors for dark mode
+//   --brand-primary: #D4A574;      // Golden sand (brighter)
+//   --brand-secondary: #7FB069;    // Fresh leaf green
+//   --brand-accent: #E9B872;       // Sunset gold
+// }
+
+// // Automatic theme based on system preference
+// @media (prefers-color-scheme: dark) {
+//   :root:not([data-theme="light"]) {
+//     // Copy soft dark theme values here
+//     --bg-primary: #2A2520;
+//     --bg-secondary: #332D27;
+//     --bg-tertiary: #3D362F;
+//     --bg-elevated: #332D27;
+//     --bg-muted: #3D362F;
+//     --bg-overlay: rgba(21, 18, 16, 0.7);
+//     --text-primary: #F5F2ED;
+//     --text-secondary: #DDD6CA;
+//     --text-tertiary: #B8AB9B;
+//     --text-muted: #8B7F70;
+//     --text-on-brand: #FAF8F5;
+//     --border-primary: #4A3F35;
+//     --border-secondary: #6B5D51;
+//     --border-focus: #D4A574;
+//     --interactive-bg: #3D362F;
+//     --interactive-bg-hover: #4A3F35;
+//     --interactive-border: #4A3F35;
+//     --code-bg: #332D27;
+//     --code-text: #F5F2ED;
+//     --code-border: #4A3F35;
+//     --code-keyword: #D4A574;
+//     --code-string: #7FB069;
+//     --code-comment: #8B7F70;
+//     --card-bg: #332D27;
+//     --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+//     --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.25), 0 4px 6px -4px rgb(0 0 0 / 0.25);
+//     --header-bg: rgba(42, 37, 32, 0.85);
+//     --menu-bg: #332D27;
+//     --menu-hover-bg: #3D362F;
+//     --glass-bg: rgba(51, 45, 39, 0.3);
+//     --glass-border: rgba(184, 171, 155, 0.1);
+//     --brand-primary: #D4A574;
+//     --brand-secondary: #7FB069;
+//     --brand-accent: #E9B872;
+//   }
+// }
+
+// // Custom scrollbar styling with earthy tones
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: var(--neutral-400) var(--bg-primary);
+// }
+
+// *::-webkit-scrollbar {
+//   width: 12px;
+//   height: 12px;
+// }
+
+// *::-webkit-scrollbar-track {
+//   background: var(--bg-primary);
+// }
+
+// *::-webkit-scrollbar-thumb {
+//   background-color: var(--neutral-400);
+//   border-radius: var(--radius-full);
+//   border: 3px solid var(--bg-primary);
+// }
+
+// *::-webkit-scrollbar-thumb:hover {
+//   background-color: var(--neutral-500);
+// }
+
+// // Selection colors
+// ::selection {
+//   background-color: var(--brand-primary);
+//   color: var(--text-on-brand);
+//   opacity: 0.9;
+// }
+
+// ::-moz-selection {
+//   background-color: var(--brand-primary);
+//   color: var(--text-on-brand);
+//   opacity: 0.9;
+// }
+
+
+
+// // _themes.scss - Single file theme configuration
+// // This file contains all theme variables for easy customization
+
+// :root {
+//   // Brand Colors - Customize these for your brand
+//   --brand-primary: #3A86FF;
+//   --brand-secondary: #8338EC;
+//   --brand-accent: #FF006E;
+//   --brand-success: #06FFA5;
+//   --brand-warning: #FFBE0B;
+//   --brand-danger: #FB5607;
+
+//   // Neutral Colors
+//   --neutral-50: #FAFAFA;
+//   --neutral-100: #F5F5F5;
+//   --neutral-200: #E5E5E5;
+//   --neutral-300: #D4D4D4;
+//   --neutral-400: #A3A3A3;
+//   --neutral-500: #737373;
+//   --neutral-600: #525252;
+//   --neutral-700: #404040;
+//   --neutral-800: #262626;
+//   --neutral-900: #171717;
+//   --neutral-950: #0A0A0A;
+
+//   // Typography Scale (fluid typography)
+//   --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+//   --text-sm: clamp(0.875rem, 1.75vw, 1rem);
+//   --text-base: clamp(1rem, 2vw, 1.125rem);
+//   --text-lg: clamp(1.125rem, 2.25vw, 1.25rem);
+//   --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+//   --text-2xl: clamp(1.5rem, 3vw, 1.875rem);
+//   --text-3xl: clamp(1.875rem, 3.75vw, 2.25rem);
+//   --text-4xl: clamp(2.25rem, 4.5vw, 3rem);
+//   --text-5xl: clamp(3rem, 6vw, 3.75rem);
+
+//   // Spacing Scale
+//   --space-1: 0.25rem;
+//   --space-2: 0.5rem;
+//   --space-3: 0.75rem;
+//   --space-4: 1rem;
+//   --space-5: 1.25rem;
+//   --space-6: 1.5rem;
+//   --space-8: 2rem;
+//   --space-10: 2.5rem;
+//   --space-12: 3rem;
+//   --space-16: 4rem;
+//   --space-20: 5rem;
+//   --space-24: 6rem;
+
+//   // Border Radius
+//   --radius-sm: 0.375rem;
+//   --radius-md: 0.5rem;
+//   --radius-lg: 0.75rem;
+//   --radius-xl: 1rem;
+//   --radius-2xl: 1.5rem;
+//   --radius-full: 9999px;
+
+//   // Shadows
+//   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+//   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+//   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+//   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+//   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+//   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+//   // Glass effect
+//   --glass-blur: blur(10px);
+//   --glass-bg: rgba(255, 255, 255, 0.1);
+//   --glass-border: rgba(255, 255, 255, 0.2);
+
+//   // Transitions
+//   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+//   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+//   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+//   // Z-index scale
+//   --z-dropdown: 1000;
+//   --z-sticky: 1020;
+//   --z-fixed: 1030;
+//   --z-modal-backdrop: 1040;
+//   --z-modal: 1050;
+//   --z-popover: 1060;
+//   --z-tooltip: 1070;
+// }
+
+// // Light Theme (default)
+// [data-theme="light"] {
+//   // Backgrounds
+//   --bg-primary: #FFFFFF;
+//   --bg-secondary: var(--neutral-50);
+//   --bg-tertiary: var(--neutral-100);
+//   --bg-elevated: #FFFFFF;
+//   --bg-muted: var(--neutral-100);
+//   --bg-overlay: rgba(0, 0, 0, 0.5);
+
+//   // Text Colors
+//   --text-primary: var(--neutral-900);
+//   --text-secondary: var(--neutral-700);
+//   --text-tertiary: var(--neutral-600);
+//   --text-muted: var(--neutral-500);
+//   --text-on-brand: #FFFFFF;
+
+//   // Borders
+//   --border-primary: var(--neutral-200);
+//   --border-secondary: var(--neutral-300);
+//   --border-focus: var(--brand-primary);
+
+//   // Interactive Elements
+//   --interactive-bg: var(--neutral-100);
+//   --interactive-bg-hover: var(--neutral-200);
+//   --interactive-border: var(--neutral-300);
+
+//   // Code blocks
+//   --code-bg: var(--neutral-100);
+//   --code-text: var(--neutral-900);
+//   --code-border: var(--neutral-200);
+//   --code-keyword: var(--brand-primary);
+//   --code-string: var(--brand-success);
+//   --code-comment: var(--neutral-500);
+
+//   // Cards and surfaces
+//   --card-bg: #FFFFFF;
+//   --card-shadow: var(--shadow-md);
+//   --card-shadow-hover: var(--shadow-lg);
+
+//   // Specific component colors
+//   --header-bg: rgba(255, 255, 255, 0.8);
+//   --menu-bg: var(--neutral-50);
+//   --menu-hover-bg: var(--neutral-100);
+// }
+
+// // Dark Theme
+// [data-theme="dark"] {
+//   // Backgrounds
+//   --bg-primary: var(--neutral-950);
+//   --bg-secondary: var(--neutral-900);
+//   --bg-tertiary: var(--neutral-800);
+//   --bg-elevated: var(--neutral-900);
+//   --bg-muted: var(--neutral-800);
+//   --bg-overlay: rgba(20, 20, 20, 0.7);
+
+//   // Text Colors
+//   --text-primary: var(--neutral-50);
+//   --text-secondary: var(--neutral-200);
+//   --text-tertiary: var(--neutral-300);
+//   --text-muted: var(--neutral-400);
+//   --text-on-brand: #FFFFFF;
+
+//   // Borders
+//   --border-primary: var(--neutral-800);
+//   --border-secondary: var(--neutral-700);
+//   --border-focus: var(--brand-primary);
+
+//   // Interactive Elements
+//   --interactive-bg: var(--neutral-800);
+//   --interactive-bg-hover: var(--neutral-700);
+//   --interactive-border: var(--neutral-700);
+
+//   // Code blocks
+//   --code-bg: var(--neutral-900);
+//   --code-text: var(--neutral-100);
+//   --code-border: var(--neutral-800);
+//   --code-keyword: #93C5FD;
+//   --code-string: #86EFAC;
+//   --code-comment: var(--neutral-500);
+
+//   // Cards and surfaces
+//   --card-bg: var(--neutral-900);
+//   --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+//   --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+
+//   // Specific component colors
+//   --header-bg: rgba(10, 10, 10, 0.8);
+//   --menu-bg: var(--neutral-900);
+//   --menu-hover-bg: var(--neutral-800);
+
+//   // Glass effect adjustments for dark mode
+//   --glass-bg: rgba(0, 0, 0, 0.3);
+//   --glass-border: rgba(255, 255, 255, 0.1);
+// }
+
+// // Automatic theme based on system preference
+// @media (prefers-color-scheme: dark) {
+//   :root:not([data-theme="light"]) {
+//     // Copy dark theme values here
+//     --bg-primary: var(--neutral-950);
+//     --bg-secondary: var(--neutral-900);
+//     --bg-tertiary: var(--neutral-800);
+//     --bg-elevated: var(--neutral-900);
+//     --bg-muted: var(--neutral-800);
+//     --bg-overlay: rgba(0, 0, 0, 0.7);
+//     --text-primary: var(--neutral-50);
+//     --text-secondary: var(--neutral-200);
+//     --text-tertiary: var(--neutral-300);
+//     --text-muted: var(--neutral-400);
+//     --text-on-brand: #FFFFFF;
+//     --border-primary: var(--neutral-800);
+//     --border-secondary: var(--neutral-700);
+//     --border-focus: var(--brand-primary);
+//     --interactive-bg: var(--neutral-800);
+//     --interactive-bg-hover: var(--neutral-700);
+//     --interactive-border: var(--neutral-700);
+//     --code-bg: var(--neutral-900);
+//     --code-text: var(--neutral-100);
+//     --code-border: var(--neutral-800);
+//     --code-keyword: #93C5FD;
+//     --code-string: #86EFAC;
+//     --code-comment: var(--neutral-500);
+//     --card-bg: var(--neutral-900);
+//     --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+//     --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+//     --header-bg: rgba(10, 10, 10, 0.8);
+//     --menu-bg: var(--neutral-900);
+//     --menu-hover-bg: var(--neutral-800);
+//     --glass-bg: rgba(0, 0, 0, 0.3);
+//     --glass-border: rgba(255, 255, 255, 0.1);
+//   }
+// }
+
+// // Custom scrollbar styling
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: var(--neutral-400) var(--bg-primary);
+// }
+
+// *::-webkit-scrollbar {
+//   width: 12px;
+//   height: 12px;
+// }
+
+// *::-webkit-scrollbar-track {
+//   background: var(--bg-primary);
+// }
+
+// *::-webkit-scrollbar-thumb {
+//   background-color: var(--neutral-400);
+//   border-radius: var(--radius-full);
+//   border: 3px solid var(--bg-primary);
+// }
+
+// *::-webkit-scrollbar-thumb:hover {
+//   background-color: var(--neutral-500);
+// }
+
+// // Selection colors
+// ::selection {
+//   background-color: var(--brand-primary);
+//   color: var(--text-on-brand);
+// }
+
+// ::-moz-selection {
+//   background-color: var(--brand-primary);
+//   color: var(--text-on-brand);
+// }

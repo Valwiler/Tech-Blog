@@ -1,5 +1,6 @@
 {% load static wagtailcore_tags %}
-<blockquote class="pull-quote-block">
+<blockquote class="pull-quote-block--centered">
+{% comment %} <blockquote class="pull-quote-block"> {% endcomment %}
   <p class="pull-quote-text">{{ self.quote }}</p>
   {% if self.attribution %}
     <cite class="pull-quote-attribution">{{ self.attribution }}</cite>

@@ -1,11 +1,36 @@
 {% load menu_tags %}
 {% if menu_items %}
-	{% for item in menu_items %}
-	    <li class="{{ item.active_class }}">
-	        <a href="{{ item.href }}">{{ item.text }}</a>
-	        {% if item.has_children_in_menu %}
-	        	{% sub_menu item template=current_template %}
-	        {% endif %}
-	    </li>
-	{% endfor %}
+	<ul class="submenu" role="menu" aria-label="{{ item.text }} submenu">
+      {% for item in menu_items %}
+        <li role="none" class="{% if item.active_class %}{{ item.active_class }}{% endif %}">
+          <a
+            href="{{ item.href }}"
+            role="menuitem"
+            {% if item.active_class == 'active' %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{ item.text }}
+          </a>
+
+          {% if item.has_children_in_menu %}
+            <ul class="submenu submenu--nested" role="menu" aria-label="{{ item.text }} submenu">
+              {% for grandchild in menu_items %}
+                <li role="none" class="{% if grandchild.active_class %}{{ grandchild.active_class }}{% endif %}">
+                  <a
+                    href="{{ grandchild.href }}"
+                    role="menuitem"
+                    {% if grandchild.active_class == 'active' %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    {{ grandchild.text }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
 {% endif %}

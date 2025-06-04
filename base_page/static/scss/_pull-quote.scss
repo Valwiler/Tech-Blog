@@ -5,139 +5,499 @@
 .pull-quote-block {
   position: relative;
   margin: $spacing-xl auto;
-  padding: $spacing-lg;
-  max-width: 800px;
-  text-align: center;
+  padding: 0;
+  max-width: 720px;
 
   @include respond-to(sm) {
     margin: $spacing-lg auto;
-    padding: $spacing-md;
   }
 
-  @include respond-to(xs) {
-    padding: $spacing-sm;
-  }
-
-  // Decorative quotes
-  &::before,
-  &::after {
+  // Modern side accent bar
+  &::before {
+    content: '';
     position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    border-radius: $radius-full;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.animate-in::before {
+    transform: scaleY(1);
+  }
+
+  // Quote mark as background element
+  &::after {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: -10px;
     font-family: Georgia, serif;
-    font-size: 5rem;
+    font-size: 8rem;
     line-height: 1;
     color: var(--brand-primary);
-    opacity: 0.15;
+    opacity: 0.08;
     font-weight: 700;
+    z-index: -1;
 
     @include respond-to(sm) {
-      font-size: 3rem;
+      font-size: 5rem;
+      top: -10px;
+      left: -5px;
     }
   }
-
-
+}
 
 .pull-quote-text {
   font-size: $font-size-xl;
   line-height: 1.5;
-  font-style: italic;
+  font-weight: 300;
   color: var(--text-primary);
-  font-weight: 400;
-  margin-bottom: $spacing-md;
+  margin: 0 0 $spacing-md;
+  padding-left: $spacing-lg;
   position: relative;
-  z-index: 1;
-
-  &::before {
-    content: '"';
-    top: -10px;
-    left: 10px;
-  }
-
-  &::after {
-    content: '"';
-    bottom: -40px;
-    right: 10px;
-  }
-}
+  letter-spacing: -0.01em;
 
   @include respond-to(sm) {
     font-size: $font-size-lg;
     line-height: 1.4;
+    padding-left: $spacing-md;
   }
 
   @include respond-to(xs) {
     font-size: $font-size-base;
   }
 
-  // Gradient text effect for modern look
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-primary) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  // Subtle emphasis on key phrases
+  strong {
+    font-weight: 600;
+    color: var(--brand-primary);
+    position: relative;
 
-  // Fallback for browsers that don't support background-clip
-  @supports not (-webkit-background-clip: text) {
-    background: none;
-    -webkit-text-fill-color: var(--text-primary);
-    color: var(--text-primary);
+    // Underline animation on hover
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--brand-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform $transition-base;
+    }
+  }
+
+  &:hover strong::after {
+    transform: scaleX(1);
   }
 }
 
 .pull-quote-attribution {
   font-size: $font-size-sm;
-  font-style: normal;
   font-weight: 500;
   color: var(--text-secondary);
-  margin-top: $spacing-md;
+  padding-left: $spacing-lg;
   display: flex;
   align-items: center;
-  justify-content: right;
   gap: $spacing-sm;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease-out;
+  transition-delay: 0.3s;
 
-  &::before {
-    content: '';
-    width: 30px;
-    height: 2px;
-    background: var(--brand-primary);
-    display: inline-block;
+  .animate-in & {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  @include respond-to(xs) {
+  @include respond-to(sm) {
+    padding-left: $spacing-md;
     font-size: $font-size-xs;
+  }
+
+  // Modern dash design
+  &::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--text-secondary);
+    display: inline-block;
+    transition: all $transition-base;
+  }
+
+  &:hover::before {
+    width: 36px;
+    background: var(--brand-primary);
+  }
+
+  // Attribution meta info (e.g., role, company)
+  .attribution-meta {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+    font-weight: 400;
   }
 }
 
-// Alternative style: Left-aligned pull quote
-.pull-quote-block--left {
-  text-align: left;
-  border-left: 4px solid var(--brand-primary);
-  padding-left: $spacing-lg;
-  background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
+// Alternative style: Centered with background
+.pull-quote-block--centered {
+  margin: auto;
+  text-align: center;
+  background: var(--bg-secondary);
+  padding: $spacing-xl;
+  border-radius: $radius-xl;
+  max-width: 800px;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
 
-  &::before {
-    left: $spacing-md;
-    top: $spacing-sm;
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
   }
 
+  &::before {
+    display: none;
+  }
+
+  &::after {
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.05;
+  }
+
+  .pull-quote-text,
+  .pull-quote-attribution {
+    padding-left: 0;
+  }
+
+  .pull-quote-attribution {
+    justify-content: right;
+    opacity: 1;
+  }
+
+  @include respond-to(sm) {
+    padding: $spacing-lg $spacing-md;
+  }
+}
+
+// Alternative style: Card with image
+.pull-quote-block--with-image {
+  display: flex;
+  gap: $spacing-lg;
+  align-items: flex-start;
+  background: var(--card-bg);
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+
+  &::before,
   &::after {
     display: none;
   }
 
+  .quote-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: $radius-full;
+    object-fit: cover;
+    border: 3px solid var(--border-primary);
+  }
+
+  .quote-content {
+    flex: 1;
+  }
+
   .pull-quote-text {
+    padding-left: 0;
     font-size: $font-size-lg;
   }
 
   .pull-quote-attribution {
-    justify-content: flex-start;
+    padding-left: 0;
+    margin-top: $spacing-sm;
+  }
+
+  @include respond-to(sm) {
+    flex-direction: column;
+    text-align: center;
+    padding: $spacing-md;
+
+    .quote-image {
+      margin: 0 auto;
+    }
+
+    .pull-quote-attribution {
+      justify-content: center;
+    }
   }
 }
 
-// Dark theme adjustments
-[data-theme="dark"] {
+// Alternative style: Minimal
+.pull-quote-block--minimal {
+  border-left: none;
+  padding-left: 0;
+  text-align: left;
+
+  &::before {
+    display: none;
+  }
+
+  &::after {
+    content: none;
+  }
+
   .pull-quote-text {
-    // Adjust gradient for dark theme
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-accent) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 0;
+    color: var(--text-primary);
+
+    // Opening and closing quotes inline
+    &::before {
+      content: '"';
+      color: var(--brand-primary);
+      font-weight: 700;
+      margin-right: 2px;
+    }
+
+    &::after {
+      content: '"';
+      color: var(--brand-primary);
+      font-weight: 700;
+      margin-left: 2px;
+    }
+  }
+
+  .pull-quote-attribution {
+    padding-left: 0;
+    color: var(--text-tertiary);
+    font-style: italic;
+
+    &::before {
+      display: none;
+    }
   }
 }
+
+// Hover interaction for the entire block
+.pull-quote-block {
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    .pull-quote-text {
+      color: var(--brand-primary);
+    }
+  }
+}
+
+// Focus styles for accessibility
+.pull-quote-block:focus-within {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 4px;
+  border-radius: $radius-md;
+}
+
+// Tweet-style quote
+.pull-quote-block--tweet {
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  position: relative;
+  max-width: 600px;
+  transition: all $transition-base;
+
+  &::before {
+    display: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    width: 24px;
+    height: 24px;
+    background: var(--text-muted);
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>') no-repeat center;
+    mask-size: contain;
+    opacity: 0.3;
+  }
+
+  &:hover {
+    border-color: var(--brand-primary);
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+
+    &::after {
+      opacity: 0.5;
+    }
+  }
+
+  .pull-quote-text {
+    padding-left: 0;
+    margin-bottom: $spacing-md;
+  }
+
+  .pull-quote-attribution {
+    padding-left: 0;
+    font-size: $font-size-sm;
+
+    &::before {
+      content: '@';
+      color: var(--brand-primary);
+      font-weight: 600;
+    }
+  }
+}
+// // blocks/_pull-quote.scss
+// @import '../../../tech_blog_wagtail/static/scss/variables';
+// @import '../../../tech_blog_wagtail/static/scss/mixins';
+
+// .pull-quote-block {
+//   position: relative;
+//   margin: $spacing-xl auto;
+//   padding: $spacing-lg;
+//   max-width: 800px;
+//   text-align: center;
+
+//   @include respond-to(sm) {
+//     margin: $spacing-lg auto;
+//     padding: $spacing-md;
+//   }
+
+//   @include respond-to(xs) {
+//     padding: $spacing-sm;
+//   }
+
+//   // Decorative quotes
+//   &::before,
+//   &::after {
+//     position: absolute;
+//     font-family: Georgia, serif;
+//     font-size: 5rem;
+//     line-height: 1;
+//     color: var(--brand-primary);
+//     opacity: 0.15;
+//     font-weight: 700;
+
+//     @include respond-to(sm) {
+//       font-size: 3rem;
+//     }
+//   }
+
+
+
+// .pull-quote-text {
+//   font-size: $font-size-xl;
+//   line-height: 1.5;
+//   font-style: italic;
+//   color: var(--text-primary);
+//   font-weight: 400;
+//   margin-bottom: $spacing-md;
+//   position: relative;
+//   z-index: 1;
+
+//   &::before {
+//     content: '"';
+//     top: -10px;
+//     left: 10px;
+//   }
+
+//   &::after {
+//     content: '"';
+//     bottom: -40px;
+//     right: 10px;
+//   }
+// }
+
+//   @include respond-to(sm) {
+//     font-size: $font-size-lg;
+//     line-height: 1.4;
+//   }
+
+//   @include respond-to(xs) {
+//     font-size: $font-size-base;
+//   }
+
+//   // Gradient text effect for modern look
+//   background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-primary) 100%);
+//   background-clip: text;
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+
+//   // Fallback for browsers that don't support background-clip
+//   @supports not (-webkit-background-clip: text) {
+//     background: none;
+//     -webkit-text-fill-color: var(--text-primary);
+//     color: var(--text-primary);
+//   }
+// }
+
+// .pull-quote-attribution {
+//   font-size: $font-size-sm;
+//   font-style: normal;
+//   font-weight: 500;
+//   color: var(--text-secondary);
+//   margin-top: $spacing-md;
+//   display: flex;
+//   align-items: center;
+//   justify-content: right;
+//   gap: $spacing-sm;
+
+//   &::before {
+//     content: '';
+//     width: 30px;
+//     height: 2px;
+//     background: var(--brand-primary);
+//     display: inline-block;
+//   }
+
+//   @include respond-to(xs) {
+//     font-size: $font-size-xs;
+//   }
+// }
+
+// // Alternative style: Left-aligned pull quote
+// .pull-quote-block--left {
+//   text-align: left;
+//   border-left: 4px solid var(--brand-primary);
+//   padding-left: $spacing-lg;
+//   background: linear-gradient(90deg, var(--bg-secondary) 0%, transparent 100%);
+
+//   &::before {
+//     left: $spacing-md;
+//     top: $spacing-sm;
+//   }
+
+//   &::after {
+//     display: none;
+//   }
+
+//   .pull-quote-text {
+//     font-size: $font-size-lg;
+//   }
+
+//   .pull-quote-attribution {
+//     justify-content: flex-start;
+//   }
+// }
+
+// // Dark theme adjustments
+// [data-theme="dark"] {
+//   .pull-quote-text {
+//     // Adjust gradient for dark theme
+//     background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-accent) 100%);
+//     background-clip: text;
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//   }
+// }

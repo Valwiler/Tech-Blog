@@ -674,7 +674,7 @@ class MobileMenu {
     const submenuParents = document.querySelectorAll('.main-menu > li.has-submenu');
 
     submenuParents.forEach(parent => {
-      const link = parent.querySelector('> a');
+      const link = parent.querySelector('a');
 
       link.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
