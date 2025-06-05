@@ -1,33 +1,34 @@
 {% load wagtailimages_tags %}
-<div class="blog-card-block">
-  <!-- 1) Image -->
+<article class="blog-card-block{% if self.style == 'minimal' %} blog-card-block--minimal{% elif self.style == 'premium' %} blog-card-block--premium{% endif %}">
   {% if self.image %}
     <div class="blog-card-image">
-      {% image self.image original fill="400x250" alt=self.heading %}
+      {% image self.image fill-400x250 loading="lazy" alt=self.heading %}
     </div>
   {% endif %}
 
-  {% if self.heading %}
-    <h3 class="blog-card-heading">{{ self.heading }}</h3>
-  {% endif %}
+  <div class="blog-card-content">
+    {% if self.publication_date %}
+      <time class="blog-card-date" datetime="{{ self.publication_date|date:'Y-m-d' }}">
+        {{ self.publication_date|date:"F j, Y" }}
+      </time>
+    {% endif %}
 
-  {% if self.publication_date %}
-    <p class="blog-card-date">
-      {{ self.publication_date|date:"F j, Y" }}
-    </p>
-  {% endif %}
+    {% if self.heading %}
+      <h3 class="blog-card-heading">{{ self.heading }}</h3>
+    {% endif %}
 
-  {% if self.excerpt %}
-    <p class="blog-card-excerpt">{{ self.excerpt }}</p>
-  {% endif %}
+    {% if self.excerpt %}
+      <p class="blog-card-excerpt">{{ self.excerpt }}</p>
+    {% endif %}
 
-  {% if self.button %}
-    <p class="blog-card-button-wrapper">
-      {%with button=self.button%}
-      <a {{ button.url }} class="blog-card-button">
-        {{ button.title }}
-      </a>
+    {% if self.button %}
+      {% with button=self.button %}
+        {% if button.url %}
+          <a {{ button.url }} class="blog-card-button">
+            <span>{{ button.title|default:"Read More" }}</span>
+          </a>
+        {% endif %}
       {% endwith %}
-    </p>
-  {% endif %}
-</div>
+    {% endif %}
+  </div>
+</article>

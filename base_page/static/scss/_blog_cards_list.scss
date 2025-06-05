@@ -4,18 +4,91 @@
 
 .blog-card-list {
   display: grid;
-  grid-gap: $spacing-md;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: $spacing-lg;
+  justify-items: center;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-md 0;
 
-  // Show 4 columns on large screens
-  grid-template-columns: repeat(4, 1fr);
-
-  // Medium devices: 2 columns
-  @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  // Small devices: 1 column
-  @include respond-to(xs) {
+  // When there's only one card, limit width and center it
+  &:has(.blog-card-block:only-child) {
+    max-width: 400px;
     grid-template-columns: 1fr;
   }
+
+  // Fallback for browsers that don't support :has()
+  .blog-card-block:only-child {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  // Medium devices: ensure proper spacing
+  @include respond-to(md) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-md;
+    max-width: 800px;
+  }
+
+  // Small devices: single column
+  @include respond-to(sm) {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    max-width: 100%;
+
+    .blog-card-block {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  // Extra small devices
+  @include respond-to(xs) {
+    padding: $spacing-sm 0;
+    gap: $spacing-sm;
+  }
 }
+
+// Alternative layouts for different card counts
+.blog-card-list--single {
+  max-width: 400px;
+  grid-template-columns: 1fr;
+}
+
+.blog-card-list--duo {
+  max-width: 800px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.blog-card-list--trio {
+  max-width: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.blog-card-list--full {
+  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+// // _blog_cards_list.scss
+// @import '../../../tech_blog_wagtail/static/scss/variables';
+// @import '../../../tech_blog_wagtail/static/scss/mixins';
+
+// .blog-card-list {
+//   display: grid;
+//   grid-gap: $spacing-md;
+
+//   // Show 4 columns on large screens
+//   grid-template-columns: repeat(4, 1fr);
+
+//   // Medium devices: 2 columns
+//   @include respond-to(md) {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+
+//   // Small devices: 1 column
+//   @include respond-to(xs) {
+//     grid-template-columns: 1fr;
+//   }
+// }

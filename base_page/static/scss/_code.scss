@@ -5,7 +5,8 @@
 .code-block {
   position: relative;
   margin: $spacing-lg 0;
-  border-radius: $radius-lg;
+  padding: $spacing-sm;
+  border-radius: $radius-sm;
   overflow: hidden;
   background: var(--code-bg);
   border: 1px solid var(--code-border);

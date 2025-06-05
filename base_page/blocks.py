@@ -202,7 +202,15 @@ class BlogCardBlock(blocks.StructBlock):
     publication_date = blocks.DateBlock(required=True, help_text="Publication date")
     excerpt = blocks.TextBlock(required=False, help_text="Short excerpt from the blog post")
     button = LinkBlock(required=False, help_text="Card Button (optional)")
-
+    style = blocks.ChoiceBlock(
+        choices=[
+            ('modern', 'Modern Clean'),
+            ('minimal', 'Minimal'),
+            ('premium', 'Premium'),
+        ],
+        default='modern',
+        help_text="Choose the card style"
+    )
 
     class Meta:
         template = "blocks/blog_card_block.html"
