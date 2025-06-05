@@ -25,6 +25,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     "home",
+    "ads_and_analytics",
     "search",
     "base_page",
     "blog_page",

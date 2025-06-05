@@ -1,0 +1,44 @@
+<!-- base_page/templates/blocks/ad_zone_block.html -->
+{% load ad_tags %}
+<div class="ad-zone-block{% if self.disable_on_mobile %} mobile-hide{% endif %} align-{{ self.alignment }}">
+  {% if self.custom_ad_code %}
+    <!-- Custom Ad Code -->
+    {{ self.custom_ad_code|safe }}
+  {% else %}
+    {% if self.ad_size == 'custom' and self.custom_width and self.custom_height %}
+      {% ad_zone zone=self.ad_type size="custom" custom_slot=self.ad_slot custom_width=self.custom_width custom_height=self.custom_height %}
+    {% else %}
+      {% ad_zone zone=self.ad_type size=self.ad_size custom_slot=self.ad_slot %}
+    {% endif %}
+  {% endif %}
+</div>
+
+<style>
+.ad-zone-block {
+  margin: var(--space-6) 0;
+}
+
+.ad-zone-block.align-left {
+  text-align: left;
+}
+
+.ad-zone-block.align-center {
+  text-align: center;
+}
+
+.ad-zone-block.align-right {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .ad-zone-block.mobile-hide {
+    display: none !important;
+  }
+}
+</style>
+
+
+
+
+
+

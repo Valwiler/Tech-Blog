@@ -1,0 +1,133 @@
+<!-- tech_blog_wagtail/templates/tags/ad_scripts.html -->
+{% if ad_settings.enable_ads %}
+  {% if ad_settings.ad_provider == 'adsense' and ad_settings.adsense_client_id %}
+    <!-- Google AdSense -->
+    {% if ad_settings.enable_auto_ads %}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ ad_settings.adsense_client_id }}"
+         crossorigin="anonymous"></script>
+    <script>
+      // Enable auto ads
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "{{ ad_settings.adsense_client_id }}",
+        enable_page_level_ads: true
+      });
+    </script>
+    {% else %}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ ad_settings.adsense_client_id }}"
+         crossorigin="anonymous"></script>
+    {% endif %}
+
+  {% elif ad_settings.ad_provider == 'media_net' and ad_settings.media_net_cid %}
+    <!-- Media.net -->
+    <script type="text/javascript">
+      window._mNHandle = window._mNHandle || {};
+      window._mNHandle.queue = window._mNHandle.queue || [];
+      window._mNDetails = {loadTag: function(id, size, cont) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://contextual.media.net/dmedianet.js?cid={{ ad_settings.media_net_cid }}&size=' + size + '&id=' + id;
+        (cont || document.body || document.head).appendChild(script);
+      }};
+    </script>
+
+  {% elif ad_settings.ad_provider == 'amazon' and ad_settings.amazon_tracking_id %}
+    <!-- Amazon Associates -->
+    <script type="text/javascript">
+      amzn_assoc_tracking_id = "{{ ad_settings.amazon_tracking_id }}";
+      amzn_assoc_ad_mode = "manual";
+      amzn_assoc_ad_type = "smart";
+      amzn_assoc_marketplace = "amazon";
+      amzn_assoc_region = "US";
+      amzn_assoc_design = "enhanced_links";
+      amzn_assoc_asins = "";
+      amzn_assoc_placement = "";
+      amzn_assoc_linkid = "";
+    </script>
+    <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US"></script>
+
+  {% elif ad_settings.ad_provider == 'custom' and ad_settings.custom_ad_script %}
+    <!-- Custom Ad Provider -->
+    {{ ad_settings.custom_ad_script|safe }}
+  {% endif %}
+{% endif %}
+
+<style>
+/* Ad Zone Styles */
+.ad-zone {
+  margin: var(--space-4) 0;
+  text-align: center;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ad-zone--header {
+  margin: 0 0 var(--space-4);
+  max-width: 100%;
+}
+
+.ad-zone--sidebar {
+  margin: var(--space-4) 0;
+  width: 100%;
+}
+
+.ad-zone--footer {
+  margin: var(--space-4) 0 0;
+  max-width: 100%;
+}
+
+.ad-zone--content {
+  margin: var(--space-6) auto;
+  max-width: 728px;
+}
+
+/* Ad placeholder styling */
+.ad-placeholder {
+  background: var(--bg-secondary);
+  border: 2px dashed var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  width: 100%;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ad-placeholder span {
+  background: var(--bg-primary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* Responsive ad hiding */
+@media (max-width: 768px) {
+  .ad-zone[data-mobile-hide="true"] {
+    display: none !important;
+  }
+}
+
+/* Loading state */
+.ad-zone.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--brand-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+</style>

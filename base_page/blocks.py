@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.functional import cached_property
 from django.utils.html import format_html
+from ads_and_analytics.blocks import CommonBlockStreamWithAds
 from wagtail import blocks
 from wagtail.blocks import StructValue
 from wagtail.blocks.struct_block import StructBlockAdapter
@@ -237,6 +238,7 @@ class CommonBlockStream(blocks.StreamBlock):
     image_gallery = ImageGalleryBlock()
     embed_video = EmbedVideoBlock()
     blog_cards = BlogCardsListBlock()
+    ads_and_analytics = CommonBlockStreamWithAds()
 
     class Meta:
         icon = "placeholder"

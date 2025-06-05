@@ -1,0 +1,246 @@
+<!-- base_page/templates/blocks/affiliate_product_block.html -->
+{% load wagtailimages_tags %}
+<div class="affiliate-product-block">
+  <div class="product-container">
+    <div class="product-image">
+      {% image self.product_image fill-300x300 as product_img %}
+      <img src="{{ product_img.url }}" alt="{{ self.product_name }}" />
+    </div>
+
+    <div class="product-content">
+      <h3 class="product-name">{{ self.product_name }}</h3>
+
+      {% if self.rating %}
+      <div class="product-rating" aria-label="Rating: {{ self.rating }} out of 5">
+        <div class="stars">
+          {% for i in "12345"|make_list %}
+            <span class="star{% if self.rating >= forloop.counter %} filled{% endif %}">★</span>
+          {% endfor %}
+        </div>
+        <span class="rating-value">{{ self.rating }}</span>
+      </div>
+      {% endif %}
+
+      <p class="product-description">{{ self.description }}</p>
+
+      {% if self.pros or self.cons %}
+      <div class="pros-cons">
+        {% if self.pros %}
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            {% for pro in self.pros %}
+            <li>{{ pro }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if self.cons %}
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            {% for con in self.cons %}
+            <li>{{ con }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="product-footer">
+        {% if self.price %}
+        <div class="product-price">{{ self.price }}</div>
+        {% endif %}
+
+        <a href="{{ self.affiliate_link }}"
+           class="product-button"
+           target="_blank"
+           rel="nofollow sponsored noopener">
+          {{ self.button_text }}
+        </a>
+      </div>
+
+      <p class="affiliate-disclosure">{{ self.disclosure_text }}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.affiliate-product-block {
+  margin: var(--space-6) 0;
+  padding: var(--space-4);
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+}
+
+.product-name {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+.rating-value {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.product-description {
+  margin: 0 0 var(--space-4);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.pros h4,
+.cons h4 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pros h4::before {
+  content: '✓ ';
+  color: var(--brand-success);
+}
+
+.cons h4::before {
+  content: '✗ ';
+  color: var(--brand-danger);
+}
+
+.pros ul,
+.cons ul {
+  margin: 0;
+  padding-left: var(--space-4);
+  list-style: none;
+}
+
+.pros li::before {
+  content: '✓';
+  color: var(--brand-success);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.cons li::before {
+  content: '✗';
+  color: var(--brand-danger);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.product-price {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.product-button {
+  flex: 1;
+  max-width: 300px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--brand-warning);
+  color: var(--text-primary);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--text-lg);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.product-button:hover {
+  background: var(--brand-secondary);
+  color: var(--text-on-brand);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.affiliate-disclosure {
+  margin: 0;
+  padding: var(--space-2);
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--brand-warning);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .product-container {
+    grid-template-columns: 1fr;
+  }
+
+  .pros-cons {
+    grid-template-columns: 1fr;
+  }
+
+  .product-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .product-button {
+    max-width: 100%;
+  }
+}
+</style>

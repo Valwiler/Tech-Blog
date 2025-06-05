@@ -1,0 +1,84 @@
+<!-- tech_blog_wagtail/templates/tags/ad_zone.html -->
+{% if ad_settings.enable_ads %}
+<div class="ad-zone ad-zone--{{ zone }} ad-zone--{{ size }}" id="{{ ad_id }}">
+  {% if ad_settings.ad_provider == 'adsense' and ad_settings.adsense_client_id %}
+    <!-- Google AdSense -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="{{ ad_settings.adsense_client_id }}"
+         {% if custom_slot %}
+         data-ad-slot="{{ custom_slot }}"
+         {% endif %}
+         {% if size == 'responsive' %}
+         data-ad-format="auto"
+         data-full-width-responsive="true"
+         {% elif size == 'banner' or size == 'leaderboard' %}
+         data-ad-format="horizontal"
+         {% elif size == 'skyscraper' or size == 'wide_skyscraper' %}
+         data-ad-format="vertical"
+         {% elif size == 'square' or size == 'small_square' or size == 'medium_rectangle' or size == 'large_rectangle' %}
+         data-ad-format="rectangle"
+         {% endif %}
+         {% if lazy_load %}
+         data-ad-loading="lazy"
+         {% endif %}
+    ></ins>
+    <script>
+      {% if lazy_load %}
+      // Lazy load ad when it comes into view
+      (function() {
+        var ad = document.getElementById('{{ ad_id }}');
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '100px' });
+        observer.observe(ad);
+      })();
+      {% else %}
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      {% endif %}
+    </script>
+
+  {% elif ad_settings.ad_provider == 'media_net' and ad_settings.media_net_cid %}
+    <!-- Media.net -->
+    <div id="{{ ad_id }}_{{ ad_settings.media_net_cid }}">
+      <script type="text/javascript">
+        try {
+          window._mNHandle.queue.push(function (){
+            window._mNDetails.loadTag("{{ ad_id }}_{{ ad_settings.media_net_cid }}",
+              {% if size == 'banner' or size == 'leaderboard' %}"728x90"
+              {% elif size == 'medium_rectangle' %}"300x250"
+              {% elif size == 'large_rectangle' %}"336x280"
+              {% elif size == 'skyscraper' %}"120x600"
+              {% elif size == 'wide_skyscraper' %}"160x600"
+              {% elif size == 'half_page' %}"300x600"
+              {% elif size == 'square' %}"250x250"
+              {% elif size == 'small_square' %}"200x200"
+              {% else %}"300x250"{% endif %},
+              "{{ ad_id }}_{{ ad_settings.media_net_cid }}");
+          });
+        }
+        catch (error) {}
+      </script>
+    </div>
+
+  {% elif ad_settings.ad_provider == 'custom' %}
+    <!-- Custom Ad -->
+    <div class="custom-ad-placeholder" data-zone="{{ zone }}" data-size="{{ size }}">
+      <!-- Custom ad code would be inserted here -->
+    </div>
+
+  {% else %}
+    <!-- Ad Placeholder -->
+    <div class="ad-placeholder">
+      <span>Advertisement</span>
+    </div>
+  {% endif %}
+</div>
+{% endif %}
+
+
