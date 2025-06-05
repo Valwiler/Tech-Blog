@@ -1,4 +1,4 @@
-{% load embed_tags %}
+{% load wagtailembeds_tags %}
 <div class="embed-video-block">
-    {% embed self value_on_error="Video unavailable" %}
+    {% embed self.url %}
 </div>

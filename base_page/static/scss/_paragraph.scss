@@ -258,26 +258,28 @@
     border-radius: $radius-md;
     font-style: italic;
     color: var(--text-secondary);
-    position: relative;
+    quotes: "“" "”" "‘" "’";
 
     &::before {
-      content: '"';
-      position: absolute;
-      top: -10px;
-      left: 10px;
-      font-size: 4rem;
+      content: open-quote;
       color: var(--brand-primary);
-      opacity: 0.2;
+      opacity: 0.5;
       font-family: Georgia, serif;
     }
 
-    p {
-      margin-bottom: $spacing-sm;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
+    &::after {
+      content: close-quote;
+      color: var(--brand-primary);
+      opacity: 0.5;
+      font-family: Georgia, serif;
     }
+    p {
+        margin-bottom: $spacing-sm;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
   }
 
   // ─────────────────────────────────────────────
