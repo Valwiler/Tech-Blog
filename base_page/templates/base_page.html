@@ -6,10 +6,44 @@
   {{ page.title }}
 {% endblock %}
 
+{% block body_class %}
+  {{ block.super }} {% if page.show_table_of_contents %}has-toc{% endif %}
+{% endblock %}
+
 {% block content %}
   <section>
-    {% for block in page.body %}
-      {% include_block block %}
-    {% endfor %}
+    {% if page.show_table_of_contents %}
+      <!-- Table of Contents -->
+      <div class="content-with-toc">
+        <div class="main-article-content">
+          {% for block in page.body %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+
+        <!-- TOC Sidebar -->
+        <aside class="toc-sidebar">
+          <div id="table-of-contents" class="toc-container"></div>
+        </aside>
+      </div>
+
+      <!-- Mobile TOC Toggle -->
+      <button id="toc-toggle" class="toc-toggle" aria-label="Toggle table of contents">
+        <svg class="toc-toggle-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    {% else %}
+      {% for block in page.body %}
+        {% include_block block %}
+      {% endfor %}
+    {% endif %}
   </section>
 {% endblock content %}
+
+{% block extra_js %}
+  {{ block.super }}
+  {% if page.show_table_of_contents %}
+    <script src="{% static 'js/table-of-contents.js' %}" defer></script>
+  {% endif %}
+{% endblock %}

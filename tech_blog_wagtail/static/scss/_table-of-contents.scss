@@ -1,0 +1,279 @@
+// _table-of-contents.scss
+@import 'variables';
+@import 'mixins';
+
+// TOC Container
+.toc-container {
+  position: sticky;
+  top: calc(var(--header-height, 80px) + var(--space-4));
+  max-height: calc(100vh - var(--header-height, 80px) - var(--space-8));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  // Mobile positioning
+  @media (max-width: 1024px) {
+    position: fixed;
+    top: auto;
+    bottom: $spacing-lg;
+    right: $spacing-lg;
+    max-width: 320px;
+    max-height: 60vh;
+    z-index: var(--z-sticky);
+    transform: translateX(calc(100% + #{$spacing-lg}));
+    transition: transform $transition-base;
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+
+  @include respond-to(sm) {
+    bottom: $spacing-md;
+    right: $spacing-md;
+    max-width: 280px;
+  }
+}
+
+// TOC Header
+.toc-header {
+  padding: $spacing-md;
+  border-bottom: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+
+  h3 {
+    margin: 0;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+// TOC List
+.toc-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-md;
+  margin: 0;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-primary) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-primary);
+    border-radius: $radius-full;
+  }
+}
+
+// TOC Sublist
+.toc-sublist {
+  list-style: none;
+  margin: 0;
+  padding-left: $spacing-md;
+}
+
+// TOC Item
+.toc-item {
+  margin: 0;
+  position: relative;
+}
+
+// TOC Link
+.toc-link {
+  display: block;
+  padding: $spacing-xs $spacing-sm;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: $font-size-sm;
+  line-height: 1.4;
+  border-radius: $radius-sm;
+  transition: all $transition-fast;
+  position: relative;
+  overflow: hidden;
+
+  // Hover effect
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--brand-primary);
+    transform: scaleY(0);
+    transition: transform $transition-fast;
+  }
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--interactive-bg);
+    padding-left: calc(#{$spacing-sm} + 6px);
+
+    &::before {
+      transform: scaleY(1);
+    }
+  }
+
+  // Active state
+  &.active {
+    color: var(--brand-primary);
+    font-weight: 500;
+    background: var(--interactive-bg);
+    padding-left: calc(#{$spacing-sm} + 6px);
+
+    &::before {
+      transform: scaleY(1);
+    }
+  }
+
+  // Indent based on heading level
+  &[data-level="3"] {
+    padding-left: calc(#{$spacing-sm} + #{$spacing-md});
+  }
+
+  &[data-level="4"] {
+    padding-left: calc(#{$spacing-sm} + #{$spacing-lg});
+  }
+
+  &[data-level="5"] {
+    padding-left: calc(#{$spacing-sm} + #{$spacing-xl});
+  }
+
+  // Adjust for active state
+  &.active[data-level="3"],
+  &:hover[data-level="3"] {
+    padding-left: calc(#{$spacing-sm} + #{$spacing-md} + 6px);
+  }
+
+  &.active[data-level="4"],
+  &:hover[data-level="4"] {
+    padding-left: calc(#{$spacing-sm} + #{$spacing-lg} + 6px);
+  }
+
+  &.active[data-level="5"],
+  &:hover[data-level="5"] {
+    padding-left: calc(#{$spacing-sm} + #{$spacing-xl} + 6px);
+  }
+}
+
+// Progress Bar
+.toc-progress {
+  height: 4px;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.toc-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+  width: 0%;
+  transition: width 0.1s ease-out;
+}
+
+// Mobile TOC Toggle
+.toc-toggle {
+  display: none;
+  position: fixed;
+  bottom: $spacing-lg;
+  right: $spacing-lg;
+  width: 56px;
+  height: 56px;
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+  border: none;
+  border-radius: $radius-full;
+  box-shadow: $shadow-lg;
+  cursor: pointer;
+  z-index: var(--z-sticky);
+  transition: all $transition-fast;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include respond-to(sm) {
+    bottom: $spacing-md;
+    right: $spacing-md;
+    width: 48px;
+    height: 48px;
+  }
+
+  &:hover {
+    background: var(--brand-secondary);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.active {
+    background: var(--brand-secondary);
+
+    .toc-toggle-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .toc-toggle-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform $transition-base;
+  }
+}
+
+// Layout adjustments when TOC is present
+.has-toc {
+  .content-layout {
+    @media (min-width: 1025px) {
+      grid-template-columns: minmax(0, var(--content-max-width, 800px)) 300px;
+    }
+  }
+
+  .sidebar--right {
+    @media (min-width: 1025px) {
+      margin-top: 0;
+    }
+  }
+}
+
+// Accessibility: Focus styles
+.toc-link:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.toc-toggle:focus-visible {
+  outline: 3px solid var(--text-on-brand);
+  outline-offset: 2px;
+}
+
+// Print styles
+@media print {
+  .toc-container,
+  .toc-toggle {
+    display: none !important;
+  }
+}

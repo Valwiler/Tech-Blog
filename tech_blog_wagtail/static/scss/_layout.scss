@@ -1,6 +1,37 @@
 // tech_blog_wagtail/static/scss/_layout.scss
 // Three-column layout with centered content
 
+@media (max-width: 767px) {
+  :root {
+    --header-height: 60px;
+  }
+}
+
+// Table of Contents Layout
+.content-with-toc {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--space-6);
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main-article-content {
+  min-width: 0; // Prevent grid blowout
+  max-width: var(--content-max-width, 800px);
+}
+
+.toc-sidebar {
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
 .content-layout {
   display: grid;
   grid-template-columns: 1fr minmax(0, var(--content-max-width, 800px)) 1fr;
@@ -17,7 +48,7 @@
   // Medium screens: hide left sidebar
   @media (max-width: 1199px) and (min-width: 768px) {
     grid-template-columns: minmax(0, var(--content-max-width, 800px)) 300px;
-    
+
     .sidebar--left {
       display: none;
     }
@@ -27,7 +58,7 @@
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
     gap: var(--space-6);
-    
+
     .sidebar--left,
     .sidebar--right {
       display: none;
