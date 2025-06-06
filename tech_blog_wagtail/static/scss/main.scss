@@ -10,9 +10,8 @@
 @import 'typography';
 @import 'menus';
 @import 'breadcrumb';
-// @import 'theme-toggle';
+@import 'layout';
 
-// Import Block partials
 @import '../../../base_page/static/scss/heading';
 @import '../../../base_page/static/scss/paragraph';
 @import '../../../base_page/static/scss/code';
@@ -23,8 +22,5 @@
 @import '../../../base_page/static/scss/blog_card';
 @import '../../../base_page/static/scss/blog_cards_list';
 
-// Additional utility classes
 @import 'utilities';
-
-// Print styles
 @import 'print';

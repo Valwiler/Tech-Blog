@@ -43,10 +43,15 @@
   <meta name="twitter:description" content="{% block twitter_description %}{{ page.search_description }}{% endblock %}">
   <meta name="twitter:image" content="{% block twitter_image %}{% static 'images/twitter-default.jpg' %}{% endblock %}">
 
-  <!-- Ad Scripts (Header) -->
-  {% ad_scripts %}
+  <!-- Ad Scripts (Header) - Only load if cookies accepted -->
+  <script>
+    // Check if analytics/ads cookies are accepted
+    window.cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true';
+    window.analyticsCookiesAccepted = localStorage.getItem('analyticsCookiesAccepted') === 'true';
+    window.adsCookiesAccepted = localStorage.getItem('adsCookiesAccepted') === 'true';
+  </script>
 
-  <!-- Analytics Scripts -->
+  {% ad_scripts %}
   {% analytics_scripts %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -59,8 +64,12 @@
   <!-- Header -->
   <header role="banner">
     <div class="container">
-      <!-- Header Ad Zone -->
-      {% ad_zone zone="header" size="leaderboard" %}
+      <!-- Header Ad Zone (only if ads enabled and cookies accepted) -->
+      {% if ad_settings.enable_header_ads %}
+        <div class="header-ad-wrapper">
+          {% ad_zone zone="header" size="leaderboard" %}
+        </div>
+      {% endif %}
 
       <nav aria-label="Main navigation">
         <a href="/" class="logo" aria-label="Home">
@@ -83,36 +92,49 @@
     </div>
   </header>
 
-  <!-- Main content -->
+  <!-- Main content with three-column layout -->
   <main id="main-content" role="main">
-    <div class="container">
-      <div class="content-wrapper">
-        <div class="main-content">
-          {% block breadcrumb %}
-            {% include "breadcrumb.html" %}
+    <div class="container container--wide">
+      <div class="content-layout">
+        <!-- Left sidebar for ads -->
+        <aside class="sidebar sidebar--left">
+          {% block left_sidebar %}
+            {% if ad_settings.enable_sidebar_ads %}
+              <div class="sidebar-ad">
+                {% ad_zone zone="sidebar" size="wide_skyscraper" %}
+              </div>
+            {% endif %}
           {% endblock %}
+        </aside>
 
-          {% block content %}{% endblock %}
+        <!-- Main content area -->
+        <div class="main-content-wrapper">
+          <div class="main-content">
+            {% block breadcrumb %}
+              {% include "breadcrumb.html" %}
+            {% endblock %}
+
+            {% block content %}{% endblock %}
+          </div>
         </div>
 
-        <!-- Sidebar with ads -->
-        {% with ads=should_show_ads %}
-          {% if ads %}
-          <aside class="sidebar">
-            {% block sidebar %}
-              <!-- Sidebar Ad Zone -->
-              {% ad_zone zone="sidebar" size="medium_rectangle" %}
+        <!-- Right sidebar for ads -->
+        <aside class="sidebar sidebar--right">
+          {% block right_sidebar %}
+            {% if ad_settings.enable_sidebar_ads %}
+              <div class="sidebar-ad">
+                {% ad_zone zone="sidebar" size="medium_rectangle" %}
+              </div>
 
-              <!-- Additional sidebar content can go here -->
+              <!-- Additional sidebar content -->
               {% block sidebar_content %}{% endblock %}
 
-              <!-- Another sidebar ad -->
-              {% ad_zone zone="sidebar" size="medium_rectangle" %}
-            {% endblock %}
-          </aside>
-          {%else%}
-          {% endif %}
-        {%endwith%}
+              <div class="sidebar-ad">
+                {% ad_zone zone="sidebar" size="medium_rectangle" %}
+              </div>
+            {% endif %}
+          {% endblock %}
+        </aside>
       </div>
     </div>
   </main>
@@ -120,7 +142,11 @@
   <!-- Footer -->
   <footer role="contentinfo">
     <!-- Footer Ad Zone -->
-    {% ad_zone zone="footer" size="banner" %}
+    {% if ad_settings.enable_footer_ads %}
+      <div class="footer-ad-wrapper">
+        {% ad_zone zone="footer" size="banner" %}
+      </div>
+    {% endif %}
 
     <div class="container">
       <div class="footer-content">
@@ -165,39 +191,6 @@
   {% block extra_js %}{% endblock %}
 </body>
 </html>
-
-<!-- Additional CSS for layout with sidebar -->
-<style>
-.content-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
-}
-
-.main-content {
-  min-width: 0;
-}
-
-.sidebar {
-  position: sticky;
-  top: calc(var(--header-height, 80px) + var(--space-4));
-  height: fit-content;
-  max-height: calc(100vh - var(--header-height, 80px) - var(--space-8));
-  overflow-y: auto;
-}
-
-@media (max-width: 1024px) {
-  .content-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    position: static;
-    margin-top: var(--space-6);
-  }
-}
-</style>
 
 {% comment %} {% load static wagtailcore_tags wagtailimages_tags menu_tags %}
 {% load compress %}
